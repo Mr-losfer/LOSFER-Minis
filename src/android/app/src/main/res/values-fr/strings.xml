@@ -2014,4 +2014,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Fournisseur LOSFER ajouté — liste des modèles actualisée.</string>
     <string name="losfer_validate_and_add">Vérifier et ajouter</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">BIBLIOTHÈQUE DE COMPÉTENCES LOSFER</string>
+    <string name="losfer_skill_library_title">Télécharger la bibliothèque de compétences LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Installez tous les packs de compétences des dépôts configurés en un seul toucher, en utilisant d’abord le miroir gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Téléchargement de la bibliothèque de compétences…</string>
+    <string name="losfer_skill_library_done">%1$d packs de compétences importés (%2$d ignorés)</string>
+    <string name="losfer_skill_library_empty">Aucun pack de compétences trouvé dans la bibliothèque téléchargée</string>
+    <string name="losfer_skill_library_failed_download">Échec du téléchargement via le proxy et la connexion directe. Vérifiez votre réseau et réessayez.</string>
+    <string name="skills_toggle_all_section">TOUTES LES COMPÉTENCES</string>
+    <string name="skills_toggle_all_status">%1$d sur %2$d activées</string>
+    <string name="skills_enable_all">Activer tout</string>
+    <string name="skills_disable_all">Désactiver tout</string>
 </resources>

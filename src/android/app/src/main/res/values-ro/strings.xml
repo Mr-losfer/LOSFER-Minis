@@ -1985,4 +1985,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Furnizorul LOSFER a fost adăugat — lista de modele a fost actualizată.</string>
     <string name="losfer_validate_and_add">Verifică și adaugă</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">BIBLIOTECA DE ABILITĂȚI LOSFER</string>
+    <string name="losfer_skill_library_title">Descarcă Biblioteca de Abilități LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Instalează fiecare pachet de abilități din depozitele configurate cu un singur atingere, folosind mai întâi mirror-ul gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Se descarcă biblioteca de abilități…</string>
+    <string name="losfer_skill_library_done">Importate %1$d pachete de abilități (%2$d omise)</string>
+    <string name="losfer_skill_library_empty">Niciun pachet de abilități găsit în biblioteca descărcată</string>
+    <string name="losfer_skill_library_failed_download">Descărcarea a eșuat prin proxy și prin conexiune directă. Verifică conexiunea la rețea și încearcă din nou.</string>
+    <string name="skills_toggle_all_section">TOATE ABILITĂȚILE</string>
+    <string name="skills_toggle_all_status">%1$d din %2$d activate</string>
+    <string name="skills_enable_all">Activează toate</string>
+    <string name="skills_disable_all">Dezactivează toate</string>
 </resources>

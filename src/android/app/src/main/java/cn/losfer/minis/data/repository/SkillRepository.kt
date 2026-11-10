@@ -19,12 +19,14 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.URLEncoder
+import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
@@ -240,8 +242,19 @@ class SkillRepository(private val context: Context) {
 
     // -- CRUD --
 
-    fun add(name: String, description: String, body: String, version: String = "1.0.0", source: ImportSource = ImportSource.FILE, sourceURL: String? = null): Skill? {
-        val id = slugify(name)
+    fun add(
+        name: String,
+        description: String,
+        body: String,
+        version: String = "1.0.0",
+        source: ImportSource = ImportSource.FILE,
+        sourceURL: String? = null,
+        /** [LOSFER-skill-library] Explicit id for packs whose authored name
+         *  is non-Latin (slugify would collapse it). Null keeps the old
+         *  name-derived behaviour for every other import path. */
+        forcedId: String? = null,
+    ): Skill? {
+        val id = forcedId?.takeIf { it.isNotBlank() } ?: slugify(name)
         if (id.isBlank()) return null
         if (_skills.value.any { it.id == id }) return null
 
@@ -294,6 +307,17 @@ class SkillRepository(private val context: Context) {
         mutateSkills { list ->
             list.map { if (it.id == id) it.copy(isEnabled = enabled) else it }
         }
+    }
+
+    /**
+     * [LOSFER-skill-library] "Enable all / Disable all" on the Skills screen.
+     * One SQL statement instead of N, so a 50-pack library toggles instantly.
+     * Session-level overrides in `session_skill_overrides` are deliberately
+     * left alone: a per-chat choice must survive a global toggle.
+     */
+    fun setAllEnabled(enabled: Boolean) {
+        db.execSQL("UPDATE skills SET is_enabled=?", arrayOf<Any>(if (enabled) 1 else 0))
+        mutateSkills { list -> list.map { it.copy(isEnabled = enabled) } }
     }
 
     // -- Session Overrides --
@@ -489,9 +513,14 @@ class SkillRepository(private val context: Context) {
      * Parse SKILL.md content (YAML frontmatter + markdown body) and import.
      * Returns the created Skill or null on failure.
      */
-    fun importFromContent(content: String, source: ImportSource = ImportSource.FILE, sourceURL: String? = null): Skill? {
+    fun importFromContent(
+        content: String,
+        source: ImportSource = ImportSource.FILE,
+        sourceURL: String? = null,
+        forcedId: String? = null,
+    ): Skill? {
         val parsed = parseSkillMd(content) ?: return null
-        val id = slugify(parsed.name)
+        val id = forcedId?.takeIf { it.isNotBlank() } ?: slugify(parsed.name)
         if (id.isNotBlank() && _skills.value.any { it.id == id }) {
             // Replace existing: update in place so URL updates refresh contents.
             val current = _skills.value.first { it.id == id }
@@ -523,6 +552,7 @@ class SkillRepository(private val context: Context) {
             version = parsed.version,
             source = source,
             sourceURL = sourceURL,
+            forcedId = id,
         )
     }
 
@@ -539,7 +569,12 @@ class SkillRepository(private val context: Context) {
      * bundled sibling files (scripts/, references/, assets/, etc.) are extracted
      * alongside it into `skillsDir/<id>/`.
      */
-    fun importFromArchive(input: InputStream): Skill? {
+    fun importFromArchive(
+        input: InputStream,
+        forcedId: String? = null,
+        source: ImportSource = ImportSource.FILE,
+        sourceURL: String? = null,
+    ): Skill? {
         val entries = try { readZipEntries(input) } catch (e: Exception) {
             Log.w(TAG, "Failed to read zip archive: ${e.message}")
             return null
@@ -555,7 +590,7 @@ class SkillRepository(private val context: Context) {
         val skillContent = try { String(skillMdEntry.data, Charsets.UTF_8) } catch (_: Exception) { return null }
         if (skillContent.isBlank()) return null
 
-        val skill = importFromContent(skillContent, ImportSource.FILE) ?: return null
+        val skill = importFromContent(skillContent, source, sourceURL, forcedId) ?: return null
 
         val prefix = if (skillMdEntry.name == "SKILL.md") "" else skillMdEntry.name.dropLast("SKILL.md".length)
         val skillDir = File(skillsDir, skill.id)
@@ -605,6 +640,133 @@ class SkillRepository(private val context: Context) {
         }
         return out
     }
+
+    // -- LOSFER skill library (batch import) --
+
+    /** Outcome of importing a whole GitHub repository archive as skill packs. */
+    data class SkillLibraryImportResult(
+        val found: Int,
+        val imported: Int,
+        val failed: Int,
+        val failedNames: List<String> = emptyList(),
+    )
+
+    /**
+     * [LOSFER-skill-library] Import EVERY skill pack found in a repository
+     * zip (each directory that owns a SKILL.md), together with its sibling
+     * scripts / references / assets.
+     *
+     * The archive is split into one mini-zip per skill directory and handed to
+     * [importFromArchive], so the existing frontmatter parser, zip-slip guards
+     * and file extraction are reused untouched.
+     *
+     * Skill names are often non-Latin (the default library is a Chinese
+     * reverse-engineering collection), and [slugify] would either collapse
+     * them to an empty id or make several packs collide on the same "ai" /
+     * "apk" prefix. A stable SHA-256 id derived from the DIRECTORY name keeps
+     * every pack distinct while the display name stays exactly as authored;
+     * downloading the library again updates packs in place rather than
+     * duplicating them.
+     */
+    suspend fun importSkillLibraryZip(
+        input: InputStream,
+        rawBaseUrl: String? = null,
+    ): SkillLibraryImportResult = withContext(Dispatchers.IO) {
+        val entries = try {
+            readZipEntries(input)
+        } catch (e: Exception) {
+            Log.w(TAG, "skill library zip unreadable: ${e.message}")
+            return@withContext SkillLibraryImportResult(0, 0, 0)
+        }
+
+        val skillMdEntries = entries.filter { e ->
+            !e.isDirectory &&
+                e.name.endsWith("/SKILL.md") &&
+                !e.name.startsWith("__MACOSX") &&
+                !e.name.startsWith(".") &&
+                !e.name.contains("/.")
+        }.distinctBy { it.name }
+
+        if (skillMdEntries.isEmpty()) {
+            return@withContext SkillLibraryImportResult(0, 0, 0)
+        }
+
+        var imported = 0
+        var failed = 0
+        val failedNames = mutableListOf<String>()
+
+        for (md in skillMdEntries) {
+            val prefix = md.name.dropLast("SKILL.md".length)
+            val dirName = prefix.trimEnd('/').substringAfterLast('/')
+            if (dirName.isBlank()) {
+                failed++
+                continue
+            }
+
+            val members = entries.filter { e ->
+                !e.isDirectory && e.name.startsWith(prefix) && e.name != md.name
+            }
+            val miniZip = buildSkillMiniZip(prefix, md, members)
+            val sourceURL = rawBaseUrl?.let { base ->
+                "$base/${encodePathSegment(dirName)}/SKILL.md"
+            }
+            val result = try {
+                importFromArchive(
+                    ByteArrayInputStream(miniZip),
+                    forcedId = librarySkillId(dirName),
+                    source = ImportSource.URL,
+                    sourceURL = sourceURL,
+                )
+            } catch (e: Exception) {
+                Log.w(TAG, "skill library import failed for $dirName: ${e.message}")
+                null
+            }
+            if (result != null) {
+                imported++
+            } else {
+                failed++
+                failedNames += dirName
+            }
+        }
+
+        Log.i(TAG, "LOSFER skill library: $imported/${skillMdEntries.size} imported, $failed failed")
+        SkillLibraryImportResult(skillMdEntries.size, imported, failed, failedNames)
+    }
+
+    /** Repack one skill directory as a mini-zip with SKILL.md at its root. */
+    private fun buildSkillMiniZip(
+        prefix: String,
+        skillMd: ZipEntryData,
+        members: List<ZipEntryData>,
+    ): ByteArray {
+        val bos = ByteArrayOutputStream()
+        ZipOutputStream(bos).use { zos ->
+            // importFromArchive only accepts SKILL.md at the root or exactly
+            // one directory deep; root is the cleanest split.
+            zos.putNextEntry(ZipEntry("SKILL.md"))
+            zos.write(skillMd.data)
+            zos.closeEntry()
+            for (m in members) {
+                val rel = m.name.removePrefix(prefix)
+                if (rel.isBlank() || rel.startsWith("/") || rel.startsWith(".") || rel.contains("..")) continue
+                zos.putNextEntry(ZipEntry(rel))
+                zos.write(m.data)
+                zos.closeEntry()
+            }
+        }
+        return bos.toByteArray()
+    }
+
+    /** Stable, collision-free id independent of the (often non-Latin) name. */
+    private fun librarySkillId(dirName: String): String {
+        val hex = MessageDigest.getInstance("SHA-256")
+            .digest(dirName.toByteArray(Charsets.UTF_8))
+            .joinToString("") { "%02x".format(it) }
+        return "losfer-" + hex.take(16)
+    }
+
+    private fun encodePathSegment(value: String): String =
+        URLEncoder.encode(value, "UTF-8").replace("+", "%20")
 
     // -- Import from GitHub URL --
 

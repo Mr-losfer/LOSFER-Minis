@@ -2544,4 +2544,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">已添加 LOSFER 提供商 — 模型列表已刷新。</string>
     <string name="losfer_validate_and_add">验证并添加</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER 技能库</string>
+    <string name="losfer_skill_library_title">下载 LOSFER 技能库</string>
+    <string name="losfer_skill_library_subtitle">一键安装来自已配置仓库的所有技能包，优先使用 gh-proxy.com 镜像</string>
+    <string name="losfer_skill_library_downloading">正在下载技能库…</string>
+    <string name="losfer_skill_library_done">已导入 %1$d 个技能包（%2$d 个已跳过）</string>
+    <string name="losfer_skill_library_empty">下载的库中未找到技能包</string>
+    <string name="losfer_skill_library_failed_download">通过代理和直连均下载失败。请检查网络后重试。</string>
+    <string name="skills_toggle_all_section">所有技能</string>
+    <string name="skills_toggle_all_status">已启用 %1$d / %2$d</string>
+    <string name="skills_enable_all">启用全部</string>
+    <string name="skills_disable_all">禁用全部</string>
 </resources>

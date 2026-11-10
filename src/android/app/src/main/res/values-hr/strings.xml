@@ -2239,4 +2239,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Provajder LOSFER dodan — popis modela osvježen.</string>
     <string name="losfer_validate_and_add">Provjeri i dodaj</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER BIBLIOTEKA VJEŠTINA</string>
+    <string name="losfer_skill_library_title">Preuzmi LOSFER biblioteku vještina</string>
+    <string name="losfer_skill_library_subtitle">Instaliraj sve pakete vještina iz konfiguriranih repozitorija jednim dodirom – prvo koristi zrcalo gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Preuzimanje biblioteke vještina…</string>
+    <string name="losfer_skill_library_done">Uvezeno %1$d paketa vještina (%2$d preskočeno)</string>
+    <string name="losfer_skill_library_empty">Nijedan paket vještina nije pronađen u preuzetoj biblioteci</string>
+    <string name="losfer_skill_library_failed_download">Preuzimanje nije uspjelo preko proksija i direktne veze. Provjeri mrežnu vezu i pokušaj ponovo.</string>
+    <string name="skills_toggle_all_section">SVE VJEŠTINE</string>
+    <string name="skills_toggle_all_status">%1$d od %2$d omogućeno</string>
+    <string name="skills_enable_all">Omogući sve</string>
+    <string name="skills_disable_all">Onemogući sve</string>
 </resources>

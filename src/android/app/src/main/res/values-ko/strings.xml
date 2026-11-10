@@ -2012,4 +2012,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">LOSFER 제공자가 추가되었습니다 — 모델 목록이 새로 고쳐졌습니다.</string>
     <string name="losfer_validate_and_add">인증 및 추가</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER 스킬 라이브러리</string>
+    <string name="losfer_skill_library_title">LOSFER 스킬 라이브러리 다운로드</string>
+    <string name="losfer_skill_library_subtitle">설정된 리포지토리의 모든 스킬 팩을 한 번에 설치합니다. 먼저 gh-proxy.com 미러를 사용합니다.</string>
+    <string name="losfer_skill_library_downloading">스킬 라이브러리 다운로드 중…</string>
+    <string name="losfer_skill_library_done">%1$d개 스킬 팩 가져왔음 (%2$d개 건너뜀)</string>
+    <string name="losfer_skill_library_empty">다운로드한 라이브러리에서 스킬 팩을 찾을 수 없음</string>
+    <string name="losfer_skill_library_failed_download">프록시와 직접 연결 모두를 통한 다운로드에 실패했습니다. 네트워크를 확인하고 다시 시도하세요.</string>
+    <string name="skills_toggle_all_section">모든 스킬</string>
+    <string name="skills_toggle_all_status">%1$d/%2$d 활성화됨</string>
+    <string name="skills_enable_all">모두 활성화</string>
+    <string name="skills_disable_all">모두 비활성화</string>
 </resources>

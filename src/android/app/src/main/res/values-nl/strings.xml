@@ -2483,4 +2483,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">LOSFER-provider toegevoegd — lijst met modellen bijgewerkt.</string>
     <string name="losfer_validate_and_add">Controleren &amp; toevoegen</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER-SKILLBIBLIOTHEEK</string>
+    <string name="losfer_skill_library_title">LOSFER Skill Library downloaden</string>
+    <string name="losfer_skill_library_subtitle">Installeer alle skillpakketten uit de geconfigureerde repositories met één tik – eerst via de gh-proxy.com-mirror</string>
+    <string name="losfer_skill_library_downloading">Skillbibliotheek wordt gedownload…</string>
+    <string name="losfer_skill_library_done">%1$d skillpakketten geïmporteerd (%2$d overgeslagen)</string>
+    <string name="losfer_skill_library_empty">Geen skillpakketten gevonden in de gedownloade bibliotheek</string>
+    <string name="losfer_skill_library_failed_download">Download mislukt via de proxy en de directe verbinding. Controleer je netwerk en probeer het opnieuw.</string>
+    <string name="skills_toggle_all_section">ALLE VAARDIGHEDEN</string>
+    <string name="skills_toggle_all_status">%1$d van %2$d ingeschakeld</string>
+    <string name="skills_enable_all">Alle inschakelen</string>
+    <string name="skills_disable_all">Alle uitschakelen</string>
 </resources>

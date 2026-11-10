@@ -2535,4 +2535,17 @@
     <string name="about_author_value">Mr-losfer</string>
     <string name="about_losfer_repo">LOSFER Minis ئامبىرى</string>
     <string name="onboarding_language_title">تىلىڭىزنى تاللاڭ</string>
+
+    <!-- [LOSFER] ماھارەت ئامبىرى: بىر چېكىمدە چۈشۈرۈش ۋە ھەممىسىنى ئېچىش/تاقاش -->
+    <string name="losfer_skill_library_section">LOSFER ماھارەت ئامبىرى</string>
+    <string name="losfer_skill_library_title">LOSFER ماھارەت ئامبىرىنى چۈشۈرۈش</string>
+    <string name="losfer_skill_library_subtitle">تەڭشەلگەن ئامبارلاردىكى بارلىق ماھارەت بوغچىلىرىنى بىر چېكىمدە قاچىلايدۇ؛ ئاۋۋال gh-proxy.com ئەينىكى ئىشلىتىلىدۇ</string>
+    <string name="losfer_skill_library_downloading">ماھارەت ئامبىرى چۈشۈرۈلۈۋاتىدۇ…</string>
+    <string name="losfer_skill_library_done">%1$d ماھارەت بوغچىسى قاچىلاندى (%2$d سى ئاتلاندى)</string>
+    <string name="losfer_skill_library_empty">چۈشۈرۈلگەن ئامباردا ماھارەت بوغچىسى تېپىلمىدى</string>
+    <string name="losfer_skill_library_failed_download">ئەينەك ۋە بىۋاسىتە ئۇلىنىش ئارقىلىق چۈشۈرۈش مەغلۇپ بولدى. تورنى تەكشۈرۈپ قايتا سىناڭ.</string>
+    <string name="skills_toggle_all_section">بارلىق ماھارەتلەر</string>
+    <string name="skills_toggle_all_status">%2$d ماھارەتنىڭ %1$d سى ئېچىلغان</string>
+    <string name="skills_enable_all">ھەممىسىنى ئېچىش</string>
+    <string name="skills_disable_all">ھەممىسىنى تاقاش</string>
 </resources>

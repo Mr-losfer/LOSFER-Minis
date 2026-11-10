@@ -2052,4 +2052,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">LOSFERプロバイダーを追加しました — モデル一覧を更新しました。</string>
     <string name="losfer_validate_and_add">確認＆追加</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFERスキルライブラリ</string>
+    <string name="losfer_skill_library_title">LOSFERスキルライブラリをダウンロード</string>
+    <string name="losfer_skill_library_subtitle">設定済みリポジトリのすべてのスキルパックをワンタップでインストール。まずgh-proxy.comミラーを使用します</string>
+    <string name="losfer_skill_library_downloading">スキルライブラリをダウンロード中…</string>
+    <string name="losfer_skill_library_done">%1$d個のスキルパックをインポートしました（%2$d個をスキップ）</string>
+    <string name="losfer_skill_library_empty">ダウンロードしたライブラリにスキルパックが見つかりません</string>
+    <string name="losfer_skill_library_failed_download">プロキシおよび直接接続でのダウンロードに失敗しました。ネットワークを確認してからもう一度お試しください</string>
+    <string name="skills_toggle_all_section">すべてのスキル</string>
+    <string name="skills_toggle_all_status">%1$d/%2$dを有効にしました</string>
+    <string name="skills_enable_all">すべて有効にする</string>
+    <string name="skills_disable_all">すべて無効にする</string>
 </resources>

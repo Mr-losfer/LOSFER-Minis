@@ -1982,4 +1982,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">เพิ่มผู้ให้บริการ LOSFER แล้ว — อัปเดตรายการโมเดล</string>
     <string name="losfer_validate_and_add">ตรวจสอบและเพิ่ม</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">ห้องสมุดทักษะ LOSFER</string>
+    <string name="losfer_skill_library_title">ดาวน์โหลดห้องสมุดทักษะ LOSFER</string>
+    <string name="losfer_skill_library_subtitle">ติดตั้งแพ็กทักษะทั้งหมดจากรีโพซิทอรีที่กำหนดค่าไว้ด้วยการแตะเพียงครั้งเดียว โดยใช้มิเรอร์ gh-proxy.com ก่อน</string>
+    <string name="losfer_skill_library_downloading">กำลังดาวน์โหลดห้องสมุดทักษะ…</string>
+    <string name="losfer_skill_library_done">นำเข้าแพ็กทักษะ %1$d แพ็ก (%2$d ข้าม)</string>
+    <string name="losfer_skill_library_empty">ไม่พบแพ็กทักษะในห้องสมุดที่ดาวน์โหลด</string>
+    <string name="losfer_skill_library_failed_download">ดาวน์โหลดล้มเหลวผ่านพร็อกซีและการเชื่อมต่อโดยตรง ตรวจสอบเครือข่ายของคุณแล้วลองอีกครั้ง</string>
+    <string name="skills_toggle_all_section">ทักษะทั้งหมด</string>
+    <string name="skills_toggle_all_status">เปิดใช้งาน %1$d จาก %2$d</string>
+    <string name="skills_enable_all">เปิดใช้งานทั้งหมด</string>
+    <string name="skills_disable_all">ปิดใช้งานทั้งหมด</string>
 </resources>

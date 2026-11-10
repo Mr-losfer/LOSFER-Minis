@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "repositories": [
+    {
+      "repo": "https://github.com/NoraStory/reverse-SKILL",
+      "branch": "main"
+    }
+  ]
+}

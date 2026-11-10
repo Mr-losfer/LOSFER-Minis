@@ -2501,4 +2501,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Poskytovatel LOSFER přidán — seznam modelů byl aktualizován.</string>
     <string name="losfer_validate_and_add">Ověřit a přidat</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER KNIHOVNA DOVEDNOSTÍ</string>
+    <string name="losfer_skill_library_title">Stáhnout knihovnu dovedností LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Nainstalujte všechny balíčky dovedností z konfigurovaných repozitářů jedním klepnutím – nejprve pomocí zrcadla gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Stahuje se knihovna dovedností…</string>
+    <string name="losfer_skill_library_done">Importováno %1$d balíčků dovedností (%2$d přeskočeno)</string>
+    <string name="losfer_skill_library_empty">V stažené knihovně nebyly nalezeny žádné balíčky dovedností</string>
+    <string name="losfer_skill_library_failed_download">Stažení selhalo přes proxy i přímé připojení. Zkontrolujte síťové připojení a zkuste to znovu.</string>
+    <string name="skills_toggle_all_section">VŠECHNY DOVEDNOSTI</string>
+    <string name="skills_toggle_all_status">%1$d z %2$d povoleno</string>
+    <string name="skills_enable_all">Povolit všechny</string>
+    <string name="skills_disable_all">Zakázat všechny</string>
 </resources>

@@ -2483,4 +2483,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">LOSFER-szolgáltató hozzáadva – a modell-lista frissítve.</string>
     <string name="losfer_validate_and_add">Ellenőrzés és hozzáadás</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">LOSFER KÉPESSÉG-KÖNYVTÁR</string>
+    <string name="losfer_skill_library_title">Töltse le a LOSFER képesség-könyvtárat</string>
+    <string name="losfer_skill_library_subtitle">Telepítsen egy kattintással minden képességszoftvert a konfigurált tárolókból, először a gh-proxy.com tükör használatával</string>
+    <string name="losfer_skill_library_downloading">Képesség-könyvtár letöltése…</string>
+    <string name="losfer_skill_library_done">%1$d képességszoftver importálva (%2$d kihagyva)</string>
+    <string name="losfer_skill_library_empty">Letöltött könyvtárban nincsenek képességszoftverek</string>
+    <string name="losfer_skill_library_failed_download">A letöltés sikertelen volt a proxison és közvetlen kapcsolaton is. Ellenőrizze az internetkapcsolatot, majd próbálja meg újra.</string>
+    <string name="skills_toggle_all_section">ÖSSZES KÉPESSÉG</string>
+    <string name="skills_toggle_all_status">%1$d / %2$d engedélyezve</string>
+    <string name="skills_enable_all">Engedélyezés mindenhez</string>
+    <string name="skills_disable_all">Letiltás mindenhez</string>
 </resources>

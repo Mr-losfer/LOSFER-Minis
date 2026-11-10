@@ -1984,4 +1984,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Provedor LOSFER adicionado — lista de modelos atualizada.</string>
     <string name="losfer_validate_and_add">Verificar e adicionar</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">BIBLIOTECA DE HABILIDADES LOSFER</string>
+    <string name="losfer_skill_library_title">Baixar Biblioteca de Habilidades LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Instale todos os pacotes de habilidades dos repositórios configurados com um toque, usando primeiro o espelho gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Baixando biblioteca de habilidades…</string>
+    <string name="losfer_skill_library_done">Importados %1$d pacotes de habilidades (%2$d ignorados)</string>
+    <string name="losfer_skill_library_empty">Nenhum pacote de habilidades encontrado na biblioteca baixada</string>
+    <string name="losfer_skill_library_failed_download">O download falhou pelo proxy e pela conexão direta. Verifique sua rede e tente novamente.</string>
+    <string name="skills_toggle_all_section">TODAS AS HABILIDADES</string>
+    <string name="skills_toggle_all_status">%1$d de %2$d ativadas</string>
+    <string name="skills_enable_all">Ativar todas</string>
+    <string name="skills_disable_all">Desativar todas</string>
 </resources>

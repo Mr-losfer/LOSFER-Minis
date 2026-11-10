@@ -1981,4 +1981,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Idinagdag ang provider ng LOSFER — na-refresh ang listahan ng modelo.</string>
     <string name="losfer_validate_and_add">Patunayan &amp; Idagdag</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">AKLATAN NG MGA SKILL NG LOSFER</string>
+    <string name="losfer_skill_library_title">I-download ang LOSFER Skill Library</string>
+    <string name="losfer_skill_library_subtitle">I-install ang bawat skill pack mula sa mga nakonfigurang repository sa isang tap, gamit muna ang mirror ng gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Nagda-download ng skill library…</string>
+    <string name="losfer_skill_library_done">Na-import ang %1$d skill packs (%2$d hindi isinama)</string>
+    <string name="losfer_skill_library_empty">Walang natagpuang skill packs sa na-download na library</string>
+    <string name="losfer_skill_library_failed_download">Nabigo ang pag-download sa pamamagitan ng proxy at direktang koneksyon. Suriin ang iyong network at subukang muli.</string>
+    <string name="skills_toggle_all_section">LAHAT NG SKILLS</string>
+    <string name="skills_toggle_all_status">%1$d sa %2$d naka-enable</string>
+    <string name="skills_enable_all">I-enable ang lahat</string>
+    <string name="skills_disable_all">I-disable ang lahat</string>
 </resources>

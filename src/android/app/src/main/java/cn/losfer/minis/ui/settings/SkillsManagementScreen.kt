@@ -90,6 +90,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
+import cn.losfer.minis.data.repository.LOSFERSkillLibrary
 import cn.losfer.minis.data.repository.SkillRepository
 import cn.losfer.minis.ui.markdown.MarkdownText
 import kotlinx.coroutines.Dispatchers
@@ -113,6 +114,14 @@ private sealed class UpdateStatus {
     data class Failed(val reason: String) : UpdateStatus()
 }
 
+/** [LOSFER-skill-library] UI state of the one-tap library download row. */
+private sealed class LibraryUiState {
+    data object Idle : LibraryUiState()
+    data object Downloading : LibraryUiState()
+    data class Done(val imported: Int, val failed: Int) : LibraryUiState()
+    data class Failed(val failure: LOSFERSkillLibrary.Failure) : LibraryUiState()
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SkillsManagementScreen(
@@ -126,6 +135,10 @@ fun SkillsManagementScreen(
     var deleteSkillId by remember { mutableStateOf<String?>(null) }
     var showAddMenu by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
+    // [LOSFER-skill-library] One-tap download state + bulk toggle counter.
+    var libraryState by remember { mutableStateOf<LibraryUiState>(LibraryUiState.Idle) }
+    val scope = rememberCoroutineScope()
+    val enabledCount = skills.count { it.isEnabled }
     val context = LocalContext.current
 
     // Sort preference — persisted like the file browser's (SharedPreferences,
@@ -228,6 +241,91 @@ fun SkillsManagementScreen(
             }
         },
     ) {
+        // [LOSFER-skill-library] Top of the Skills page: one tap pulls every
+        // pack from the configured repositories (gh-proxy.com first), with
+        // the download state / result shown inline on the same row.
+        val librarySubtitle = when (val state = libraryState) {
+            is LibraryUiState.Idle -> stringResource(R.string.losfer_skill_library_subtitle)
+            is LibraryUiState.Downloading -> stringResource(R.string.losfer_skill_library_downloading)
+            is LibraryUiState.Done -> stringResource(
+                R.string.losfer_skill_library_done, state.imported, state.failed,
+            )
+            is LibraryUiState.Failed -> when (state.failure) {
+                LOSFERSkillLibrary.Failure.DOWNLOAD ->
+                    stringResource(R.string.losfer_skill_library_failed_download)
+                LOSFERSkillLibrary.Failure.EMPTY ->
+                    stringResource(R.string.losfer_skill_library_empty)
+            }
+        }
+
+        SettingsSection(
+            header = stringResource(R.string.losfer_skill_library_section),
+        ) {
+            SettingsRow(
+                title = stringResource(R.string.losfer_skill_library_title),
+                subtitle = librarySubtitle,
+                icon = Icons.Filled.Inventory2,
+                iconColor = Color(0xFF7C4DFF),
+                onClick = {
+                    if (libraryState !is LibraryUiState.Downloading) {
+                        libraryState = LibraryUiState.Downloading
+                        scope.launch {
+                            val result = LOSFERSkillLibrary.downloadAndImport(skillRepository)
+                            libraryState = if (result.isSuccess) {
+                                LibraryUiState.Done(result.imported, result.failed)
+                            } else {
+                                LibraryUiState.Failed(
+                                    result.failure ?: LOSFERSkillLibrary.Failure.DOWNLOAD,
+                                )
+                            }
+                        }
+                    }
+                },
+                showChevron = false,
+                showDivider = false,
+                trailing = {
+                    if (libraryState is LibraryUiState.Downloading) {
+                        CircularProgressIndicator(modifier = Modifier.size(20.dp))
+                    } else {
+                        Icon(
+                            Icons.Filled.ArrowDownward,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                        )
+                    }
+                },
+            )
+        }
+
+        // [LOSFER-skill-library] Bulk enable/disable for the whole list.
+        SettingsSection(
+            header = stringResource(R.string.skills_toggle_all_section),
+            footer = stringResource(R.string.skills_toggle_all_status, enabledCount, skills.size),
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                MinisTextButton(
+                    onClick = { skillRepository.setAllEnabled(true) },
+                    modifier = Modifier.weight(1f),
+                    enabled = skills.isNotEmpty(),
+                ) {
+                    Text(stringResource(R.string.skills_enable_all))
+                }
+                MinisTextButton(
+                    onClick = { skillRepository.setAllEnabled(false) },
+                    modifier = Modifier.weight(1f),
+                    enabled = skills.isNotEmpty(),
+                ) {
+                    Text(stringResource(R.string.skills_disable_all))
+                }
+            }
+        }
+
         // Search bar — filters by skill name + description. Sits above the
         // section so it's discoverable without scrolling on a long list.
         if (skills.isNotEmpty()) {

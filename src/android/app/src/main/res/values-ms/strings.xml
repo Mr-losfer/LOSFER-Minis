@@ -1981,4 +1981,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Penyedia LOSFER ditambah — senarai model dikemas kini.</string>
     <string name="losfer_validate_and_add">Kesahkan &amp; Tambah</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">PERPUSTAKAAN KEMAHIRAN LOSFER</string>
+    <string name="losfer_skill_library_title">Muat Turun Perpustakaan Kemahiran LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Pasang setiap pakej kemahiran dari repositori yang dikonfigurasi dengan satu ketikan, menggunakan cermin gh-proxy.com terlebih dahulu</string>
+    <string name="losfer_skill_library_downloading">Memuat turun perpustakaan kemahiran…</string>
+    <string name="losfer_skill_library_done">Telah diimport %1$d pakej kemahiran (%2$d dilepas)</string>
+    <string name="losfer_skill_library_empty">Tiada pakej kemahiran ditemui dalam perpustakaan yang dimuat turun</string>
+    <string name="losfer_skill_library_failed_download">Muat turun gagal melalui proksi dan sambungan langsung. Semak rangkaian anda dan cuba lagi.</string>
+    <string name="skills_toggle_all_section">SEMUA KEMAHIRAN</string>
+    <string name="skills_toggle_all_status">%1$d daripada %2$d diaktifkan</string>
+    <string name="skills_enable_all">Aktifkan semua</string>
+    <string name="skills_disable_all">Nyahaktifkan semua</string>
 </resources>

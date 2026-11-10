@@ -1994,4 +1994,17 @@
     <string name="losfer_provider_label">LOSFER</string>
     <string name="losfer_success">Провайдер LOSFER добавлен — список моделей обновлён.</string>
     <string name="losfer_validate_and_add">Проверить и добавить</string>
+
+    <!-- LOSFER Minis: skill library download + bulk toggle -->
+    <string name="losfer_skill_library_section">БИБЛИОТЕКА НАВЫКОВ LOSFER</string>
+    <string name="losfer_skill_library_title">Скачать библиотеку навыков LOSFER</string>
+    <string name="losfer_skill_library_subtitle">Установите все пакеты навыков из настроенных репозиториев одним касанием — сначала через зеркало gh-proxy.com</string>
+    <string name="losfer_skill_library_downloading">Загрузка библиотеки навыков…</string>
+    <string name="losfer_skill_library_done">Импортировано %1$d пакетов навыков (%2$d пропущено)</string>
+    <string name="losfer_skill_library_empty">В скачанной библиотеке не найдено пакетов навыков</string>
+    <string name="losfer_skill_library_failed_download">Загрузка не удалась через прокси и по прямому соединению. Проверьте подключение к сети и повторите попытку.</string>
+    <string name="skills_toggle_all_section">ВСЕ НАВЫКИ</string>
+    <string name="skills_toggle_all_status">%1$d из %2$d включены</string>
+    <string name="skills_enable_all">Включить все</string>
+    <string name="skills_disable_all">Выключить все</string>
 </resources>

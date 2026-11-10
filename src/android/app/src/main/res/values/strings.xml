@@ -2751,4 +2751,17 @@
 
     <!-- [LOSFER] First-launch language step -->
     <string name="onboarding_language_title">Select your language</string>
+
+    <!-- [LOSFER] Skill library: one-tap download + bulk enable/disable -->
+    <string name="losfer_skill_library_section">LOSFER SKILL LIBRARY</string>
+    <string name="losfer_skill_library_title">Download LOSFER Skill Library</string>
+    <string name="losfer_skill_library_subtitle">Install every skill pack from the configured repositories in one tap, using the gh-proxy.com mirror first</string>
+    <string name="losfer_skill_library_downloading">Downloading skill library…</string>
+    <string name="losfer_skill_library_done">Imported %1$d skill packs (%2$d skipped)</string>
+    <string name="losfer_skill_library_empty">No skill packs found in the downloaded library</string>
+    <string name="losfer_skill_library_failed_download">Download failed through the proxy and the direct connection. Check your network and try again.</string>
+    <string name="skills_toggle_all_section">ALL SKILLS</string>
+    <string name="skills_toggle_all_status">%1$d of %2$d enabled</string>
+    <string name="skills_enable_all">Enable all</string>
+    <string name="skills_disable_all">Disable all</string>
 </resources>
