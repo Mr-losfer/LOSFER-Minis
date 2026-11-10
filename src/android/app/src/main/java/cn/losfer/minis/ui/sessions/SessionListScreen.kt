@@ -3569,7 +3569,49 @@ private fun OnboardingLanding(
             textAlign = TextAlign.Center,
         )
 
-        Spacer(Modifier.height(32.dp))
+        // [LOSFER] One-click LOSFER gateway setup, sitting above the three
+        // setup steps so it is the first thing a new user can act on.
+        val losferRepo = cn.losfer.minis.ui.quota.rememberProviderRepository()
+        var showLosferDialog by remember { mutableStateOf(false) }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    shape = RoundedCornerShape(12.dp),
+                )
+                .clickable { showLosferDialog = true }
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Default.AutoAwesome,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(28.dp),
+            )
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.losfer_oneclick_title),
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+                Text(
+                    text = stringResource(R.string.losfer_oneclick_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+            }
+        }
+        if (showLosferDialog) {
+            cn.losfer.minis.ui.settings.LOSFERSetupDialog(
+                repo = losferRepo,
+                onDismiss = { showLosferDialog = false },
+            )
+        }
+        Spacer(Modifier.height(12.dp))
 
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),

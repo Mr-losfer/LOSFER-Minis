@@ -31,6 +31,15 @@ import java.util.Locale
 object LocaleWrap {
 
     /**
+     * [LOSFER] Uyghur is the default UI language on a fresh install. The
+     * preference is only written once the user picks a language (onboarding
+     * or Settings -> Appearance), so every read uses this as its fallback.
+     * An explicit "Follow system" pick is stored as an empty string and is
+     * still honoured.
+     */
+    const val DEFAULT_LANGUAGE = "ug"
+
+    /**
      * Returns a Context whose Configuration.locales contains the saved
      * language as the primary locale. Safe to call from
      * `Activity.attachBaseContext` (uses raw SharedPreferences on the
@@ -43,7 +52,7 @@ object LocaleWrap {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) return forceLtr(base)
         val code = base
             .getSharedPreferences(PREF_APPEARANCE, Context.MODE_PRIVATE)
-            .getString(KEY_LANGUAGE, "")
+            .getString(KEY_LANGUAGE, DEFAULT_LANGUAGE)
             .orEmpty()
         if (code.isEmpty()) return forceLtr(base)
         val locale = parseLocale(code) ?: return forceLtr(base)
@@ -76,7 +85,7 @@ object LocaleWrap {
     /** True when the saved in-app language wants the RTL layout. */
     fun isRtlLanguage(context: Context): Boolean =
         context.getSharedPreferences(PREF_APPEARANCE, Context.MODE_PRIVATE)
-            .getString(KEY_LANGUAGE, "").orEmpty() == RTL_LANGUAGE
+            .getString(KEY_LANGUAGE, DEFAULT_LANGUAGE).orEmpty() == RTL_LANGUAGE
 
     /**
      * [LOSFER] Persist the in-app language and apply it immediately. Used by

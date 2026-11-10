@@ -716,7 +716,11 @@ class MainActivity : ComponentActivity() {
 
     private fun applySavedLanguage() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
-        val code = getSharedPreferences(PREF_APPEARANCE, MODE_PRIVATE).getString(KEY_LANGUAGE, "") ?: ""
+        // [LOSFER] A fresh install defaults to Uyghur; an explicit "Follow
+        // system" pick stores an empty string and is still honoured here.
+        val code = getSharedPreferences(PREF_APPEARANCE, MODE_PRIVATE)
+            .getString(KEY_LANGUAGE, cn.losfer.minis.i18n.LocaleWrap.DEFAULT_LANGUAGE)
+            ?: cn.losfer.minis.i18n.LocaleWrap.DEFAULT_LANGUAGE
         val localeManager = getSystemService(LocaleManager::class.java) ?: return
         val desired = if (code.isEmpty()) LocaleList.getEmptyLocaleList() else LocaleList.forLanguageTags(code)
         if (localeManager.applicationLocales.toLanguageTags() != desired.toLanguageTags()) {

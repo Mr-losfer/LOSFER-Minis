@@ -443,7 +443,7 @@
     <string name="common_close">Close</string>
     <string name="common_skip">Skip</string>
     <string name="common_next">Next</string>
-    <string name="onboarding_welcome_title">Welcome to Minis</string>
+    <string name="onboarding_welcome_title">LOSFER Minis</string>
     <string name="onboarding_welcome_subtitle">Your Minis Agent with terminal, browser, and native device access.</string>
     <string name="onboarding_get_started">Get Started</string>
     <string name="onboarding_provider_title">Add a Provider</string>
@@ -1957,7 +1957,7 @@
     <string name="back">Back</string>
 
     <!-- Welcome / onboarding (T332) -->
-    <string name="sessionlist_welcome_title">Welcome to Minis</string>
+    <string name="sessionlist_welcome_title">LOSFER Minis</string>
     <string name="sessionlist_welcome_subtitle">Your first On-Device Agent is almost ready.</string>
     <string name="sessionlist_welcome_step1_title">Add a Provider</string>
     <string name="sessionlist_welcome_step1_subtitle">Configure an API key or sign in with OAuth</string>

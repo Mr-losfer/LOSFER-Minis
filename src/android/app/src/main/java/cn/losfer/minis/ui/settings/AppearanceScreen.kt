@@ -179,6 +179,9 @@ data class LanguageOption(val code: String, val flag: String, val label: String)
 // and stay as literals \u2014 Chinese is always "\u7B80\u4F53\u4E2D\u6587", regardless of UI locale.
 // [LOSFER] public: the first-launch onboarding language step renders the same list.
 val languageOptions = listOf(
+    // [LOSFER] Uyghur is the default UI language on a fresh install, so it
+    // leads the list instead of sitting at the bottom. Arabic-script, RTL.
+    LanguageOption("ug", "\uD83C\uDF10", "\u0626\u06C7\u064A\u063A\u06C7\u0631\u0686\u06D5"),
     LanguageOption("", "\uD83C\uDF10", ""),
     LanguageOption("en", "\uD83C\uDDFA\uD83C\uDDF8", "English"),
     LanguageOption("zh", "\uD83C\uDDE8\uD83C\uDDF3", "简体中文"),
@@ -261,10 +264,8 @@ val languageOptions = listOf(
     // The app's only right-to-left language; its text is Persian but the
     // layout stays left-to-right - see LocaleWrap.forceLtr.
     LanguageOption("fa", "\uD83C\uDDEE\uD83C\uDDF7", "\u0641\u0627\u0631\u0633\u06CC"),
-    // ug: Uyghur (ئۇيغۇرچە). Arabic-script, right-to-left — when selected the
-    // whole app mirrors to RTL (see LocaleWrap). No country flag on purpose:
-    // use the crescent-star-free globe glyph so the row always renders.
-    LanguageOption("ug", "\uD83C\uDF10", "\u0626\u06C7\u064A\u063A\u06C7\u0631\u0686\u06D5"),
+    // [LOSFER] The Uyghur entry lives at the top of this list now (it is the
+    // default language), see the head of languageOptions above.
 )
 
 fun getAppearancePrefs(context: Context): SharedPreferences =
