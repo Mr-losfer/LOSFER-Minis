@@ -9,10 +9,13 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -197,6 +200,70 @@ fun MinisAppearance(darkTheme: Boolean, content: @Composable () -> Unit) {
             content = content,
         )
     }
+}
+
+/**
+ * [LOSFER-ug-chat-ltr] Pin the chat subtree to a left-to-right layout in
+ * EVERY language.
+ *
+ * Uyghur mirrors the whole app (LocaleWrap + [MinisTheme]), but a chat
+ * transcript is not a settings form: bubbles, the composer, the toolbar,
+ * the scrollbar and every sheet opened from the chat must sit exactly where
+ * they sit in English. Overriding LocalLayoutDirection fixes the frame —
+ * Row/Column, padding, Start/End and absolute alignments resolve to the
+ * left edge again, so nothing gets mirrored.
+ *
+ * That alone is not enough: [MinisTheme]'s RTL typography deliberately drops
+ * the pinned TextAlign.Left so paragraphs follow Start (the right edge).
+ * Re-providing the CURRENT typography with the LTR alignment restores the
+ * original paragraph alignment while keeping fontScale and the selected
+ * Uyghur font family intact. Text itself is untouched: Arabic-script Uyghur
+ * still reads right-to-left inside its own paragraph (TextDirection.Content)
+ * — only the surrounding frame is pinned, which is what "keep the chat as
+ * it was" means.
+ *
+ * Safe in non-RTL languages too: the layout direction is already Ltr and the
+ * typography already carries TextAlign.Left, so this is effectively a no-op.
+ */
+@Composable
+fun ProvideChatLtr(content: @Composable () -> Unit) {
+    val base = MaterialTheme.typography
+    val ltrTypography = remember(base) { base.withLtrAlignment() }
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        // Only typography is overridden; colours, shapes and every app-local
+        // (LocalChatPalette, selection controller, image loader, …) come from
+        // the enclosing theme unchanged.
+        MaterialTheme(
+            colorScheme = MaterialTheme.colorScheme,
+            shapes = MaterialTheme.shapes,
+            typography = ltrTypography,
+        ) {
+            content()
+        }
+    }
+}
+
+/** Rebuild a [Typography] with the original LTR paragraph alignment. */
+private fun Typography.withLtrAlignment(): Typography {
+    fun TextStyle.fixed(): TextStyle =
+        copy(textDirection = TextDirection.Content, textAlign = TextAlign.Left)
+    return Typography(
+        displayLarge = displayLarge.fixed(),
+        displayMedium = displayMedium.fixed(),
+        displaySmall = displaySmall.fixed(),
+        headlineLarge = headlineLarge.fixed(),
+        headlineMedium = headlineMedium.fixed(),
+        headlineSmall = headlineSmall.fixed(),
+        titleLarge = titleLarge.fixed(),
+        titleMedium = titleMedium.fixed(),
+        titleSmall = titleSmall.fixed(),
+        bodyLarge = bodyLarge.fixed(),
+        bodyMedium = bodyMedium.fixed(),
+        bodySmall = bodySmall.fixed(),
+        labelLarge = labelLarge.fixed(),
+        labelMedium = labelMedium.fixed(),
+        labelSmall = labelSmall.fixed(),
+    )
 }
 
 private fun TextStyle.scale(factor: Float): TextStyle =

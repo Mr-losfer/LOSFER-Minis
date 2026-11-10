@@ -1544,10 +1544,14 @@ fun AppNavigation(
             arguments = listOf(navArgument("sessionId") { type = NavType.StringType }),
         ) { backStackEntry ->
             val sessionId = backStackEntry.arguments?.getString("sessionId") ?: return@composable
-            cn.losfer.minis.ui.chat.AgentTranscriptScreen(
-                sessionId = sessionId,
-                onBack = { navController.safePopBackStack() },
-            )
+            // [LOSFER-ug-chat-ltr] A transcript is chat content too: keep it
+            // in the same unmirrored LTR frame as the chat page itself.
+            cn.losfer.minis.ui.theme.ProvideChatLtr {
+                cn.losfer.minis.ui.chat.AgentTranscriptScreen(
+                    sessionId = sessionId,
+                    onBack = { navController.safePopBackStack() },
+                )
+            }
         }
 
         composable(Routes.ABOUT) {

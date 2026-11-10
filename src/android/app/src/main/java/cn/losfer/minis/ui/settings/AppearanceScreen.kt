@@ -861,7 +861,7 @@ fun AppearanceScreen(
 
         // -- Uyghur Font ([LOSFER] يېڭى ئىقتىدار) --
         // Typeface picker for the Uyghur (Arabic-script) text. Applies
-        // app-wide through MinisTheme's typography; default ALKATIP Asliya.
+        // app-wide through MinisTheme's typography; default UKIJ Tuz.
         SettingsSection(
             header = stringResource(R.string.appearance_section_uyghur_font),
             footer = stringResource(R.string.appearance_uyghur_font_footer),

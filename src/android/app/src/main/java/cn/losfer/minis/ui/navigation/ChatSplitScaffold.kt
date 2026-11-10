@@ -946,6 +946,12 @@ fun ChatSplitScaffoldRoute(
         },
         detailPane = { sessionId, onBackInPane, onNewChatInPane, onMoveToInPane,
             onToggleSidebar, sidebarCollapsed ->
+            // [LOSFER-ug-chat-ltr] Uyghur mirrors the rest of the app, but the
+            // chat page keeps its original left-to-right frame: bubbles,
+            // composer, toolbar, scrollbar and every sheet opened here. The
+            // session list and all other screens stay under the global
+            // direction from MinisTheme / LocaleWrap.
+            cn.losfer.minis.ui.theme.ProvideChatLtr {
             cn.losfer.minis.ui.chat.ChatScreen(
                 // The pane navigator's contentKey IS the session id, so a
                 // draft ("__new__…") flows through unchanged and ChatScreen's
@@ -1007,6 +1013,7 @@ fun ChatSplitScaffoldRoute(
                 onModelGroupsClick = { navController.safeNavigate(Routes.MODEL_GROUPS) },
                 onEditProviderClick = { id -> navController.safeNavigate(Routes.providerDetail(id)) },
             )
+            }
         },
     )
 }

@@ -50,6 +50,7 @@ import cn.losfer.minis.ui.chat.LocalMinisSelectionController
 import cn.losfer.minis.ui.theme.DarkChatPalette
 import cn.losfer.minis.ui.theme.LightChatPalette
 import cn.losfer.minis.ui.theme.MinisAppearance
+import cn.losfer.minis.ui.theme.ProvideChatLtr
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -236,14 +237,20 @@ internal class ChatExportBreakSink {
 @Composable
 internal fun ChatExportSurface(dark: Boolean, content: @Composable () -> Unit) {
     MinisAppearance(darkTheme = dark) {
-        val context = LocalContext.current
-        val loader = remember(context) { context.imageLoader.newBuilder().allowHardware(false).build() }
-        @Suppress("DEPRECATION")
-        CompositionLocalProvider(
-            LocalImageLoader provides loader,
-            LocalMinisSelectionController provides null,
-            content = content,
-        )
+        // [LOSFER-ug-chat-ltr] An exported chat must look exactly like the
+        // on-screen chat: never mirrored, even when the app language is
+        // Uyghur (RTL). This surface may live in its own composition, so the
+        // direction has to be pinned here too, not just in ChatScreen.
+        ProvideChatLtr {
+            val context = LocalContext.current
+            val loader = remember(context) { context.imageLoader.newBuilder().allowHardware(false).build() }
+            @Suppress("DEPRECATION")
+            CompositionLocalProvider(
+                LocalImageLoader provides loader,
+                LocalMinisSelectionController provides null,
+                content = content,
+            )
+        }
     }
 }
 
