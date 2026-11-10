@@ -1990,4 +1990,28 @@
     <string name="mcp_signin_not_signed_in">Non connecté</string>
     <string name="mcp_signin_sign_in">Se connecter</string>
     <string name="mcp_signin_reset_confirm">Réinitialiser</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Auteur</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Dépôt LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Police ouïghoure</string>
+    <string name="appearance_uyghur_font_footer">Police utilisée dans l\'application. Plusieurs polices ouïghoures sont fournies ; UKIJ Tuz est la police par défaut.</string>
+    <string name="onboarding_language_title">Sélectionnez votre langue</string>
+    <string name="losfer_adding">Vérification et ajout en cours…</string>
+    <string name="losfer_already_added">Un fournisseur LOSFER existe déjà. Mettre à jour sa clé API à la place ?</string>
+    <string name="losfer_api_key_label">Clé API</string>
+    <string name="losfer_dialog_desc">Collez ci-dessous votre clé API LOSFER. LOSFER expose un point de terminaison compatible OpenAI (https://api.losfer.cn/v1) ; l\'application vérifie la clé, ajoute le fournisseur et récupère automatiquement la liste des modèles.</string>
+    <string name="losfer_dialog_title">Se connecter à LOSFER</string>
+    <string name="losfer_failed_to_add">Échec de l\'ajout du fournisseur LOSFER.</string>
+    <string name="losfer_get_key_hint">Comment obtenir une clé : connectez-vous sur api.losfer.cn, ouvrez « Clés API » et créez-en une.</string>
+    <string name="losfer_get_key_link">Obtenir une clé API ↗</string>
+    <string name="losfer_invalid_key">Cette clé a été rejetée par l\'API LOSFER. Vérifiez-la et réessayez.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Impossible d\'atteindre l\'API LOSFER. Vérifiez votre connexion et réessayez.</string>
+    <string name="losfer_oneclick_subtitle">Se connecter au passerelle API LOSFER avec une seule clé</string>
+    <string name="losfer_oneclick_title">Configuration en un clic LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Fournisseur LOSFER ajouté — liste des modèles actualisée.</string>
+    <string name="losfer_validate_and_add">Vérifier et ajouter</string>
 </resources>

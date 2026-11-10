@@ -37,6 +37,17 @@ object UpdateChecker {
 
     private const val TAG = "UpdateChecker"
     private const val DOWNLOAD_FILENAME = "minis-update.apk"
+
+    /**
+     * [LOSFER] GitHub is often slow or blocked on CN networks. Both the
+     * releases API and the APK asset are requested through gh-proxy.com
+     * first; any failure falls back to the original direct URL so the
+     * updater never becomes dependent on the proxy being reachable.
+     */
+    private const val GH_PROXY = "https://gh-proxy.com/"
+
+    private fun proxied(url: String): String =
+        if (url.startsWith(GH_PROXY)) url else GH_PROXY + url
     /**
      * Sub-directory of `filesDir` where we stage downloaded update APKs. We
      * moved off `cacheDir/shared/` (the original location) so the OS can't
@@ -187,24 +198,52 @@ object UpdateChecker {
      * for a 304. A 404 is an empty list.
      */
     private fun fetchPage(page: Int, etag: String?): Pair<String?, List<UpdatePolicy.Release>>? {
-        val url = "https://api.github.com/repos/${BuildConfig.RELEASE_REPO}/releases?per_page=$PER_PAGE&page=$page"
+        val direct = "https://api.github.com/repos/${BuildConfig.RELEASE_REPO}/releases?per_page=$PER_PAGE&page=$page"
+        // [LOSFER] Prefer the gh-proxy.com mirror. Any transport or HTTP
+        // failure falls back to GitHub direct, so a proxy outage can never
+        // break update checks.
+        val candidates = listOf(proxied(direct), direct)
+        var last: Exception? = null
+        for (i in candidates.indices) {
+            try {
+                return fetchPageOnce(candidates[i], page, etag, viaProxy = i == 0)
+            } catch (f: HttpFailure) {
+                last = f
+                if (i == candidates.lastIndex) throw f
+                AppLogger.warning(TAG, "gh-proxy.com releases request failed, falling back to direct")
+            } catch (e: IOException) {
+                last = e
+                if (i == candidates.lastIndex) throw e
+                AppLogger.warning(TAG, "gh-proxy.com unreachable (${e.javaClass.simpleName}), falling back to direct")
+            }
+        }
+        throw last ?: IOException("no release endpoint reachable")
+    }
+
+    private fun fetchPageOnce(
+        url: String,
+        page: Int,
+        etag: String?,
+        viaProxy: Boolean,
+    ): Pair<String?, List<UpdatePolicy.Release>>? {
+        val via = if (viaProxy) " via gh-proxy.com" else ""
         val b = Request.Builder()
             .url(url)
             .header("Accept", "application/vnd.github+json")
             .header("X-GitHub-Api-Version", "2022-11-28")
         if (etag != null) b.header("If-None-Match", etag)
         client.newCall(b.build()).execute().use { resp ->
-            AppLogger.info(TAG, "GET releases page=$page HTTP ${resp.code}")
+            AppLogger.info(TAG, "GET releases page=$page$via HTTP ${resp.code}")
             if (resp.code == 304) return null
             if (resp.code == 404) return null to emptyList()
             // 403 = rate-limit or geo-blocked. 451 = legal block. Both map to
             // the same "open Releases in browser" hint.
             if (resp.code == 403 || resp.code == 451) {
-                AppLogger.warning(TAG, "GitHub API ${resp.code} — geo-block or rate-limit")
+                AppLogger.warning(TAG, "GitHub API ${resp.code}$via — geo-block or rate-limit")
                 throw HttpFailure(CheckResult.Forbidden)
             }
             if (!resp.isSuccessful) {
-                AppLogger.warning(TAG, "GitHub API ${resp.code}")
+                AppLogger.warning(TAG, "GitHub API ${resp.code}$via")
                 throw HttpFailure(CheckResult.Error("GitHub API ${resp.code}"))
             }
             val body = resp.body?.string() ?: throw HttpFailure(CheckResult.Error("empty body"))
@@ -325,32 +364,36 @@ object UpdateChecker {
             // behind that the installer would happily try to consume. Wipe it.
             if (outFile.exists()) outFile.delete()
 
-            val req = Request.Builder().url(url).build()
-            client.newCall(req).execute().use { resp ->
-                if (!resp.isSuccessful) {
-                    return@withContext DownloadResult.Error("HTTP ${resp.code}")
+            // [LOSFER] Try gh-proxy.com first for GitHub-hosted APKs, then
+            // fall back to the original URL. Each failed attempt wipes its
+            // partial file so a retry can never install a truncated APK.
+            val candidates = if (url.startsWith("https://github.com/") ||
+                url.startsWith("https://objects.githubusercontent.com/")
+            ) {
+                listOf(proxied(url), url)
+            } else {
+                listOf(url)
+            }
+            var lastError: String? = null
+            var downloaded = false
+            for (i in candidates.indices) {
+                if (outFile.exists()) outFile.delete()
+                val err = streamApk(candidates[i], outFile, onProgress)
+                if (err == null) {
+                    downloaded = true
+                    AppLogger.info(TAG, "APK fetched${if (i == 0) " via gh-proxy.com" else " directly"}")
+                    break
                 }
-                val body = resp.body ?: return@withContext DownloadResult.Error("empty body")
-                val total = body.contentLength().takeIf { it > 0 } ?: -1L
-                body.byteStream().use { input ->
-                    outFile.outputStream().use { output ->
-                        val buf = ByteArray(64 * 1024)
-                        var read: Int
-                        var totalRead = 0L
-                        var lastReported = -1
-                        while (input.read(buf).also { read = it } != -1) {
-                            output.write(buf, 0, read)
-                            totalRead += read
-                            if (total > 0) {
-                                val pct = ((totalRead * 100) / total).toInt()
-                                if (pct != lastReported) {
-                                    lastReported = pct
-                                    onProgress(pct / 100f)
-                                }
-                            }
-                        }
-                    }
-                }
+                lastError = err
+                AppLogger.warning(
+                    TAG,
+                    "${if (i == 0) "gh-proxy.com" else "direct"} download failed: $err",
+                )
+                if (i < candidates.lastIndex) onProgress(0f)
+            }
+            if (!downloaded) {
+                outFile.delete()
+                return@withContext DownloadResult.Error(lastError ?: "download failed")
             }
             AppLogger.info(TAG, "Downloaded ${outFile.length()} bytes to ${outFile.absolutePath}")
             // Persist so a subsequent Activity recreate (e.g. after the user
@@ -382,6 +425,44 @@ object UpdateChecker {
         } catch (e: Exception) {
             AppLogger.error(TAG, "download failed: ${e.javaClass.simpleName}: ${e.message}")
             DownloadResult.Error(e.message ?: e.javaClass.simpleName)
+        }
+    }
+
+    /**
+     * Stream one URL into [outFile], reporting progress. Returns an error
+     * message or null on success. Extracted from [download] so the
+     * gh-proxy.com attempt and the direct fallback share one code path.
+     */
+    private fun streamApk(url: String, outFile: File, onProgress: (Float) -> Unit): String? {
+        return try {
+            val req = Request.Builder().url(url).build()
+            client.newCall(req).execute().use { resp ->
+                if (!resp.isSuccessful) return@use "HTTP ${resp.code}"
+                val body = resp.body ?: return@use "empty body"
+                val total = body.contentLength().takeIf { it > 0 } ?: -1L
+                body.byteStream().use { input ->
+                    outFile.outputStream().use { output ->
+                        val buf = ByteArray(64 * 1024)
+                        var read: Int
+                        var totalRead = 0L
+                        var lastReported = -1
+                        while (input.read(buf).also { read = it } != -1) {
+                            output.write(buf, 0, read)
+                            totalRead += read
+                            if (total > 0) {
+                                val pct = ((totalRead * 100) / total).toInt()
+                                if (pct != lastReported) {
+                                    lastReported = pct
+                                    onProgress(pct / 100f)
+                                }
+                            }
+                        }
+                    }
+                }
+                null
+            }
+        } catch (e: Exception) {
+            e.message ?: e.javaClass.simpleName
         }
     }
 

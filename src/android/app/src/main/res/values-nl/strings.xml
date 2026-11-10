@@ -2459,4 +2459,28 @@
     <string name="mcp_dcr_no_pkce">Deze autorisatieserver ondersteunt geen PKCE (S256), wat vereist is.</string>
     <string name="mcp_dcr_bad_registration_endpoint">Het registratie-endpoint is ongeldig.</string>
     <string name="mcp_dcr_registration_unreadable">Het registratieantwoord kon niet worden gelezen.</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Auteur</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis-repository</string>
+    <string name="appearance_section_uyghur_font">Oeigoerse lettertype</string>
+    <string name="appearance_uyghur_font_footer">Lettertype dat in de app wordt gebruikt. Er zijn verschillende Oeigoerse lettertypen bijgeleverd; UKIJ Tuz is de standaard.</string>
+    <string name="onboarding_language_title">Kies uw taal</string>
+    <string name="losfer_adding">Controleren en toevoegen…</string>
+    <string name="losfer_already_added">Er bestaat al een LOSFER-provider. Wilt u de API-sleutel bijwerken?</string>
+    <string name="losfer_api_key_label">API-sleutel</string>
+    <string name="losfer_dialog_desc">Plak hieronder uw LOSFER-API-sleutel. LOSFER biedt een OpenAI-compatibele endpoint aan (https://api.losfer.cn/v1); de app controleert de sleutel, voegt de provider toe en haalt automatisch de lijst met modellen op.</string>
+    <string name="losfer_dialog_title">Verbind met LOSFER</string>
+    <string name="losfer_failed_to_add">Toevoegen van de LOSFER-provider is mislukt.</string>
+    <string name="losfer_get_key_hint">Hoe u een sleutel krijgt: log in op api.losfer.cn, open ‘API-sleutels’ en maak er een aan.</string>
+    <string name="losfer_get_key_link">Een API-sleutel verkrijgen ↗</string>
+    <string name="losfer_invalid_key">Die sleutel is door de LOSFER-API afgewezen. Controleer hem en probeer het opnieuw.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">De LOSFER-API kon niet worden bereikt. Controleer uw verbinding en probeer het opnieuw.</string>
+    <string name="losfer_oneclick_subtitle">Verbind de LOSFER-API-gateway met één sleutel</string>
+    <string name="losfer_oneclick_title">LOSFER-éénklikinstallatie</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFER-provider toegevoegd — lijst met modellen bijgewerkt.</string>
+    <string name="losfer_validate_and_add">Controleren &amp; toevoegen</string>
 </resources>

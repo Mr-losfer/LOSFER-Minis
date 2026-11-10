@@ -2477,4 +2477,28 @@
     <string name="mcp_dcr_no_pkce">Tento autorizační server nepodporuje PKCE (S256), které je vyžadováno.</string>
     <string name="mcp_dcr_bad_registration_endpoint">Registrační endpoint není platný.</string>
     <string name="mcp_dcr_registration_unreadable">Odpověď na registraci se nepodařilo přečíst.</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autor</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repozitář LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Ujgurské písmo</string>
+    <string name="appearance_uyghur_font_footer">Typografie použitá v celé aplikaci. Je dodáváno několik ujgurských písem; UKIJ Tuz je výchozí.</string>
+    <string name="onboarding_language_title">Vyberte jazyk</string>
+    <string name="losfer_adding">Ověřování a přidávání…</string>
+    <string name="losfer_already_added">Poskytovatel LOSFER již existuje. Chcete aktualizovat jeho klíč API místo toho?</string>
+    <string name="losfer_api_key_label">Klíč API</string>
+    <string name="losfer_dialog_desc">Vložte svůj klíč API LOSFER níže. LOSFER poskytuje koncový bod kompatibilní s OpenAI (https://api.losfer.cn/v1); aplikace ověří klíč, přidá poskytovatele a automaticky načte seznam modelů.</string>
+    <string name="losfer_dialog_title">Připojit LOSFER</string>
+    <string name="losfer_failed_to_add">Přidání poskytovatele LOSFER se nepodařilo.</string>
+    <string name="losfer_get_key_hint">Jak získat klíč: přihlaste se na api.losfer.cn, otevřete „Klíče API“ a vytvořte jeden.</string>
+    <string name="losfer_get_key_link">Získejte klíč API ↗</string>
+    <string name="losfer_invalid_key">Tento klíč byl odmítnut rozhraním LOSFER API. Zkontrolujte ho a zkuste to znovu.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Nelze dosáhnout rozhraní LOSFER API. Zkontrolujte připojení a zkuste to znovu.</string>
+    <string name="losfer_oneclick_subtitle">Připojte bránu LOSFER API jediným klíčem</string>
+    <string name="losfer_oneclick_title">Jednoklikové nastavení LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Poskytovatel LOSFER přidán — seznam modelů byl aktualizován.</string>
+    <string name="losfer_validate_and_add">Ověřit a přidat</string>
 </resources>

@@ -1990,4 +1990,28 @@
     <string name="mcp_signin_not_signed_in">Nicht angemeldet</string>
     <string name="mcp_signin_sign_in">Anmelden</string>
     <string name="mcp_signin_reset_confirm">Zurücksetzen</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autor</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis-Repository</string>
+    <string name="appearance_section_uyghur_font">Uigurische Schriftart</string>
+    <string name="appearance_uyghur_font_footer">Schriftart, die in der App verwendet wird. Enthält mehrere uigurische Schriftarten; UKIJ Tuz ist die Standardeinstellung.</string>
+    <string name="onboarding_language_title">Sprache auswählen</string>
+    <string name="losfer_adding">Überprüfen und hinzufügen…</string>
+    <string name="losfer_already_added">Ein LOSFER-Anbieter existiert bereits. API-Schlüssel aktualisieren?</string>
+    <string name="losfer_api_key_label">API-Schlüssel</string>
+    <string name="losfer_dialog_desc">Fügen Sie Ihren LOSFER-API-Schlüssel unten ein. LOSFER stellt einen OpenAI-kompatiblen Endpunkt bereit (https://api.losfer.cn/v1); die App überprüft den Schlüssel, fügt den Anbieter hinzu und ruft automatisch die Modellliste ab.</string>
+    <string name="losfer_dialog_title">LOSFER verbinden</string>
+    <string name="losfer_failed_to_add">Hinzufügen des LOSFER-Anbieters fehlgeschlagen.</string>
+    <string name="losfer_get_key_hint">So erhalten Sie einen Schlüssel: Melden Sie sich bei api.losfer.cn an, öffnen Sie „API-Schlüssel“ und erstellen Sie einen.</string>
+    <string name="losfer_get_key_link">API-Schlüssel holen ↗</string>
+    <string name="losfer_invalid_key">Dieser Schlüssel wurde von der LOSFER-API abgelehnt. Bitte überprüfen Sie ihn und versuchen Sie es erneut.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Die LOSFER-API konnte nicht erreicht werden. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
+    <string name="losfer_oneclick_subtitle">Verbinden Sie das LOSFER-API-Gateway mit einem einzigen Schlüssel</string>
+    <string name="losfer_oneclick_title">LOSFER-Ein-Klick-Einrichtung</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFER-Anbieter hinzugefügt – Modellliste aktualisiert.</string>
+    <string name="losfer_validate_and_add">Überprüfen &amp; Hinzufügen</string>
 </resources>

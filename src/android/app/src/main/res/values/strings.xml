@@ -2724,7 +2724,7 @@
 
     <!-- [LOSFER] Uyghur font picker -->
     <string name="appearance_section_uyghur_font">Uyghur Font</string>
-    <string name="appearance_uyghur_font_footer">Typeface used across the app. Ships several Uyghur fonts; ALKATIP Asliya is the default.</string>
+    <string name="appearance_uyghur_font_footer">Typeface used across the app. Ships several Uyghur fonts; UKIJ Tuz is the default.</string>
 
     <!-- [LOSFER] One-click LOSFER provider setup -->
     <string name="losfer_oneclick_title">LOSFER One-Click Setup</string>

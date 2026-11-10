@@ -2215,4 +2215,28 @@
     <string name="mcp_signin_not_signed_in">Niste prijavljeni</string>
     <string name="mcp_signin_sign_in">Prijava</string>
     <string name="mcp_signin_reset_confirm">Poništi</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autor</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repozitorij LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Ujgurski font</string>
+    <string name="appearance_uyghur_font_footer">Font koji se koristi u cijeloj aplikaciji. Uključuje nekoliko ujgurskih fontova; UKIJ Tuz je zadana vrijednost.</string>
+    <string name="onboarding_language_title">Odaberite svoj jezik</string>
+    <string name="losfer_adding">Provjerava i dodaje…</string>
+    <string name="losfer_already_added">Provider LOSFER već postoji. Želite li ažurirati njegov API ključ?</string>
+    <string name="losfer_api_key_label">API ključ</string>
+    <string name="losfer_dialog_desc">Zalijepite svoj API ključ LOSFER ispod. LOSFER pruža krajnju tačku kompatibilnu s OpenAI (https://api.losfer.cn/v1); aplikacija provjerava ključ, dodaje provajdera i automatski preuzima popis modela.</string>
+    <string name="losfer_dialog_title">Poveži LOSFER</string>
+    <string name="losfer_failed_to_add">Dodavanje provajdera LOSFER nije uspjelo.</string>
+    <string name="losfer_get_key_hint">Kako dobiti ključ: prijavite se na api.losfer.cn, otvorite „API ključevi“ i kreirajte jedan.</string>
+    <string name="losfer_get_key_link">Dobijte API ključ ↗</string>
+    <string name="losfer_invalid_key">Taj ključ je odbio API LOSFER. Provjerite ga i pokušajte ponovo.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Nije moguće pristupiti API-u LOSFER. Provjerite vezu i pokušajte ponovo.</string>
+    <string name="losfer_oneclick_subtitle">Povežite LOSFER API gateway s jednim ključem</string>
+    <string name="losfer_oneclick_title">LOSFER – postavka jednim klikom</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Provajder LOSFER dodan — popis modela osvježen.</string>
+    <string name="losfer_validate_and_add">Provjeri i dodaj</string>
 </resources>

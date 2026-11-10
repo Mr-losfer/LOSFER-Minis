@@ -2510,4 +2510,28 @@
     <string name="mcp_dcr_registration_unreadable">無法讀取註冊回應。</string>
     <string name="mcp_dcr_http_status">%1$s 回傳了 HTTP %2$d。</string>
     <string name="mcp_dcr_unreadable">%1$s 回傳的資料無法讀取。</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">作者</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis 儲存庫</string>
+    <string name="appearance_section_uyghur_font">維吾爾文字體</string>
+    <string name="appearance_uyghur_font_footer">整個應用中使用的字型。內含多種維吾爾文字體；預設為 UKIJ Tuz。</string>
+    <string name="onboarding_language_title">選擇語言</string>
+    <string name="losfer_adding">驗證並新增中…</string>
+    <string name="losfer_already_added">已存在 LOSFER 供應商。是否改為更新其 API 金鑰？</string>
+    <string name="losfer_api_key_label">API 金鑰</string>
+    <string name="losfer_dialog_desc">Paste your LOSFER API key below. LOSFER exposes an OpenAI-compatible endpoint (https://api.losfer.cn/v1); the app verifies the key, adds the provider and fetches the model list automatically.</string>
+    <string name="losfer_dialog_title">連接 LOSFER</string>
+    <string name="losfer_failed_to_add">新增 LOSFER 供應商失敗。</string>
+    <string name="losfer_get_key_hint">如何取得金鑰：前往 api.losfer.cn 登入，開啟「API 金鑰」並建立一組。</string>
+    <string name="losfer_get_key_link">取得 API 金鑰 ↗</string>
+    <string name="losfer_invalid_key">該金鑰已被 LOSFER API 拒絕。請檢查後再試一次。</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">無法連線至 LOSFER API。請檢查網路連線後再試。</string>
+    <string name="losfer_oneclick_subtitle">以單一金鑰連接 LOSFER API 閘道</string>
+    <string name="losfer_oneclick_title">LOSFER 一鍵設定</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFER 供應商已新增 — 模型清單已更新。</string>
+    <string name="losfer_validate_and_add">驗證並新增</string>
 </resources>

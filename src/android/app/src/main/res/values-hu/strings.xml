@@ -2459,4 +2459,28 @@
     <string name="mcp_dcr_no_pkce">Ez az engedélyezési szerver nem támogatja a kötelező PKCE-t (S256).</string>
     <string name="mcp_dcr_bad_registration_endpoint">A regisztrációs végpont érvénytelen.</string>
     <string name="mcp_dcr_registration_unreadable">A regisztrációs válasz nem olvasható.</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Szerző</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis tároló</string>
+    <string name="appearance_section_uyghur_font">Ujgur betűtípus</string>
+    <string name="appearance_uyghur_font_footer">Az alkalmazásban használt betűtípus. Több ujgur betűtípust tartalmaz; az UKIJ Tuz az alapértelmezett.</string>
+    <string name="onboarding_language_title">Válaszd ki a nyelved</string>
+    <string name="losfer_adding">Ellenőrzés és hozzáadás…</string>
+    <string name="losfer_already_added">Már létezik egy LOSFER-szolgáltató. Frissíteni szeretnéd a API-kulcsát?</string>
+    <string name="losfer_api_key_label">API-kulcs</string>
+    <string name="losfer_dialog_desc">Illeszd be a LOSFER API-kulcsod alább. A LOSFER egy OpenAI-kompatibilis végpontot biztosít (https://api.losfer.cn/v1); az alkalmazás ellenőrzi a kulcsot, hozzáadja a szolgáltatót és automatikusan lekéri a modell-listát.</string>
+    <string name="losfer_dialog_title">Kapcsolódás a LOSFER-hez</string>
+    <string name="losfer_failed_to_add">Nem sikerült hozzáadni a LOSFER-szolgáltatót.</string>
+    <string name="losfer_get_key_hint">Hogyan szerezd meg a kulcsot: jelentkezz be az api.losfer.cn oldalon, nyisd meg az „API-kulcsok” menüpontot és hozz létre egyet.</string>
+    <string name="losfer_get_key_link">SZEREZZ API-kulcsot ↗</string>
+    <string name="losfer_invalid_key">Ezt a kulcsot a LOSFER API visszautasította. Ellenőrizd és próbálj újra.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Nem sikerült elérni a LOSFER API-t. Ellenőrizd a kapcsolatot és próbálj újra.</string>
+    <string name="losfer_oneclick_subtitle">Kapcsold össze a LOSFER API-átjárót egyetlen kulccsal</string>
+    <string name="losfer_oneclick_title">LOSFER egykattintásos beállítás</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFER-szolgáltató hozzáadva – a modell-lista frissítve.</string>
+    <string name="losfer_validate_and_add">Ellenőrzés és hozzáadás</string>
 </resources>

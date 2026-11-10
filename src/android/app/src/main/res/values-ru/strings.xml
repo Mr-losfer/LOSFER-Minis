@@ -1970,4 +1970,28 @@
     <string name="mcp_signin_not_signed_in">Вход не выполнен</string>
     <string name="mcp_signin_sign_in">Войти</string>
     <string name="mcp_signin_reset_confirm">Сбросить</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Автор</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Репозиторий LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Уйгурский шрифт</string>
+    <string name="appearance_uyghur_font_footer">Шрифт, используемый во всём приложении. Включены несколько уйгурских шрифтов; по умолчанию — UKIJ Tuz.</string>
+    <string name="onboarding_language_title">Выберите язык</string>
+    <string name="losfer_adding">Проверка и добавление…</string>
+    <string name="losfer_already_added">Провайдер LOSFER уже существует. Обновить его API-ключ вместо этого?</string>
+    <string name="losfer_api_key_label">API-ключ</string>
+    <string name="losfer_dialog_desc">Вставьте ваш API-ключ LOSFER ниже. LOSFER предоставляет эндпоинт, совместимый с OpenAI (https://api.losfer.cn/v1); приложение проверяет ключ, добавляет провайдера и автоматически загружает список моделей.</string>
+    <string name="losfer_dialog_title">Подключить LOSFER</string>
+    <string name="losfer_failed_to_add">Не удалось добавить провайдера LOSFER.</string>
+    <string name="losfer_get_key_hint">Как получить ключ: войдите на api.losfer.cn, откройте «API-ключи» и создайте ключ.</string>
+    <string name="losfer_get_key_link">Получить API-ключ ↗</string>
+    <string name="losfer_invalid_key">Этот ключ был отклонён API LOSFER. Проверьте его и попробуйте снова.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Не удалось связаться с API LOSFER. Проверьте подключение и попробуйте снова.</string>
+    <string name="losfer_oneclick_subtitle">Подключите шлюз API LOSFER одним ключом</string>
+    <string name="losfer_oneclick_title">Однокликовая настройка LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Провайдер LOSFER добавлен — список моделей обновлён.</string>
+    <string name="losfer_validate_and_add">Проверить и добавить</string>
 </resources>

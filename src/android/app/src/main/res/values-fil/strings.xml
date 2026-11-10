@@ -1957,4 +1957,28 @@
     <string name="mcp_signin_not_signed_in">Hindi naka-sign in</string>
     <string name="mcp_signin_sign_in">Mag-sign In</string>
     <string name="mcp_signin_reset_confirm">I-reset</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">May-akda</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repository ng LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Font ng Uyghur</string>
+    <string name="appearance_uyghur_font_footer">Tipo ng titik na ginagamit sa buong app. Kasama ang ilang font ng Uyghur; ang UKIJ Tuz ang default.</string>
+    <string name="onboarding_language_title">Pumili ng wika</string>
+    <string name="losfer_adding">Nagpapatunay at nagdaragdag…</string>
+    <string name="losfer_already_added">May umiiral nang provider ng LOSFER. I-update ang API key nito sa halip?</string>
+    <string name="losfer_api_key_label">API Key</string>
+    <string name="losfer_dialog_desc">I-paste ang iyong LOSFER API key sa ibaba. Naglalabas ang LOSFER ng endpoint na katugma ng OpenAI (https://api.losfer.cn/v1); pinatutunayan ng app ang key, idinadagdag ang provider at awtomatikong kinukuha ang listahan ng modelo.</string>
+    <string name="losfer_dialog_title">Ikonekta ang LOSFER</string>
+    <string name="losfer_failed_to_add">Hindi nagtagumpay ang pagdaragdag ng provider ng LOSFER.</string>
+    <string name="losfer_get_key_hint">Paano kumuha ng key: mag-log in sa api.losfer.cn, buksan ang “API Keys” at lumikha ng isa.</string>
+    <string name="losfer_get_key_link">Kumuha ng API key ↗</string>
+    <string name="losfer_invalid_key">Tinanggihan ng LOSFER API ang key na iyon. Suriin ito at subukang muli.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Hindi maabot ang LOSFER API. Suriin ang iyong koneksyon at subukang muli.</string>
+    <string name="losfer_oneclick_subtitle">Ikonekta ang LOSFER API gateway gamit ang isang key lamang</string>
+    <string name="losfer_oneclick_title">One-Click Setup ng LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Idinagdag ang provider ng LOSFER — na-refresh ang listahan ng modelo.</string>
+    <string name="losfer_validate_and_add">Patunayan &amp; Idagdag</string>
 </resources>

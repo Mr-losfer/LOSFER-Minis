@@ -1958,4 +1958,28 @@
     <string name="mcp_signin_not_signed_in">ยังไม่ได้ลงชื่อเข้าใช้</string>
     <string name="mcp_signin_sign_in">ลงชื่อเข้าใช้</string>
     <string name="mcp_signin_reset_confirm">รีเซ็ต</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">ผู้เขียน</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">คลัง LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">แบบอักษรอุยกูร์</string>
+    <string name="appearance_uyghur_font_footer">แบบอักษรที่ใช้ทั่วแอป มีแบบอักษรอุยกูร์หลายแบบมาให้ UKIJ Tuz เป็นค่าเริ่มต้น</string>
+    <string name="onboarding_language_title">เลือกภาษาของคุณ</string>
+    <string name="losfer_adding">กำลังตรวจสอบและเพิ่ม...</string>
+    <string name="losfer_already_added">มีผู้ให้บริการ LOSFER อยู่แล้ว ต้องการอัปเดตคีย์ API แทนหรือไม่?</string>
+    <string name="losfer_api_key_label">คีย์ API</string>
+    <string name="losfer_dialog_desc">วางคีย์ API ของ LOSFER ด้านล่าง LOSFER เปิดใช้งานจุดสิ้นสุดที่เข้ากันได้กับ OpenAI (https://api.losfer.cn/v1) แอปจะตรวจสอบคีย์ เพิ่มผู้ให้บริการ และดึงรายการโมเดลโดยอัตโนมัติ</string>
+    <string name="losfer_dialog_title">เชื่อมต่อ LOSFER</string>
+    <string name="losfer_failed_to_add">เพิ่มผู้ให้บริการ LOSFER ไม่สำเร็จ</string>
+    <string name="losfer_get_key_hint">วิธีรับคีย์: ล็อกอินที่ api.losfer.cn เปิด “API Keys” แล้วสร้างคีย์หนึ่ง</string>
+    <string name="losfer_get_key_link">รับคีย์ API ↗</string>
+    <string name="losfer_invalid_key">คีย์นั้นถูกปฏิเสธโดย API ของ LOSFER โปรดตรวจสอบแล้วลองอีกครั้ง</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">ไม่สามารถติดต่อ API ของ LOSFER ได้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง</string>
+    <string name="losfer_oneclick_subtitle">เชื่อมต่อเกตเวย์ API ของ LOSFER ด้วยคีย์เพียงคีย์เดียว</string>
+    <string name="losfer_oneclick_title">การตั้งค่า LOSFER หนึ่งคลิก</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">เพิ่มผู้ให้บริการ LOSFER แล้ว — อัปเดตรายการโมเดล</string>
+    <string name="losfer_validate_and_add">ตรวจสอบและเพิ่ม</string>
 </resources>

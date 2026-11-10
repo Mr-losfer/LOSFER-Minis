@@ -2514,7 +2514,7 @@
     <string name="mcp_dcr_http_status">%1$s HTTP %2$d قايتۇردى.</string>
     <string name="mcp_dcr_unreadable">%1$s ئوقۇشقا بولمىغان سانلىق مەلۇماتنى قايتۇردى.</string>
     <string name="appearance_section_uyghur_font">ئۇيغۇرچە خەت نۇسخىسى</string>
-    <string name="appearance_uyghur_font_footer">پۈتۈن ئەپتە ئىشلىتىلىدىغان خەت نۇسخىسى. بىر نەچچە ئۇيغۇرچە خەت نۇسخىسى ئەپ بىلەن تەمىنلەنگەن؛ سۈكۈمىتى ALKATIP Asliya.</string>
+    <string name="appearance_uyghur_font_footer">پۈتۈن ئەپتە ئىشلىتىلىدىغان خەت نۇسخىسى. بىر نەچچە ئۇيغۇرچە خەت نۇسخىسى ئەپ بىلەن تەمىنلەنگەن؛ سۈكۈمىتى UKIJ Tuz.</string>
     <string name="losfer_oneclick_title">LOSFER بىر چېكىمدە قۇرۇش</string>
     <string name="losfer_oneclick_subtitle">بىر ئاچقۇچ بىلەن LOSFER API دەرۋازىسىغا ئۇلىنىش</string>
     <string name="losfer_dialog_title">LOSFER غا ئۇلىنىش</string>

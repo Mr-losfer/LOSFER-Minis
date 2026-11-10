@@ -2459,4 +2459,28 @@
     <string name="mcp_dcr_no_pkce">این سرور مجوزدهی از PKCE (S256) که الزامی است پشتیبانی نمی‌کند.</string>
     <string name="mcp_dcr_bad_registration_endpoint">نشانی ثبت‌نام معتبر نیست.</string>
     <string name="mcp_dcr_registration_unreadable">پاسخ ثبت‌نام قابل خواندن نبود.</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">نویسنده</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">مخزن LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">فونت اویغوری</string>
+    <string name="appearance_uyghur_font_footer">فونت استفاده‌شده در سراسر برنامه. چند فونت اویغوری همراه برنامه ارائه می‌شود؛ UKIJ Tuz پیش‌فرض است.</string>
+    <string name="onboarding_language_title">زبان خود را انتخاب کنید</string>
+    <string name="losfer_adding">در حال تأیید و افزودن…</string>
+    <string name="losfer_already_added">یک ارائه‌دهنده LOSFER از قبل وجود دارد. به‌جای آن کلید API آن را به‌روز کنید؟</string>
+    <string name="losfer_api_key_label">کلید API</string>
+    <string name="losfer_dialog_desc">کلید API LOSFER خود را در زیر چسبانید. LOSFER یک نقطه پایانی سازگار با OpenAI ارائه می‌دهد (https://api.losfer.cn/v1)؛ برنامه کلید را تأیید، ارائه‌دهنده را اضافه و لیست مدل‌ها را به‌طور خودکار بارگذاری می‌کند.</string>
+    <string name="losfer_dialog_title">اتصال به LOSFER</string>
+    <string name="losfer_failed_to_add">افزودن ارائه‌دهنده LOSFER ناموفق بود.</string>
+    <string name="losfer_get_key_hint">نحوه دریافت کلید: در api.losfer.cn وارد شوید، بخش «کلیدهای API» را باز کنید و یک کلید ایجاد کنید.</string>
+    <string name="losfer_get_key_link">کلید API بگیرید ↗</string>
+    <string name="losfer_invalid_key">آن کلید توسط API LOSFER رد شد. لطفاً آن را بررسی و دوباره امتحان کنید.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">امکان دسترسی به API LOSFER وجود نداشت. اتصال خود را بررسی و دوباره امتحان کنید.</string>
+    <string name="losfer_oneclick_subtitle">دروازه API LOSFER را با یک کلید تنها متصل کنید</string>
+    <string name="losfer_oneclick_title">راه‌اندازی یک‌کلیکی LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">ارائه‌دهنده LOSFER اضافه شد — لیست مدل به‌روز شد.</string>
+    <string name="losfer_validate_and_add">تأیید و اضافه کن</string>
 </resources>

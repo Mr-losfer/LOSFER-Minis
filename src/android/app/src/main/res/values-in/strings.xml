@@ -1962,4 +1962,28 @@
     <string name="mcp_signin_not_signed_in">Belum masuk</string>
     <string name="mcp_signin_sign_in">Masuk</string>
     <string name="mcp_signin_reset_confirm">Setel Ulang</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Penulis</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repositori LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Font Uyghur</string>
+    <string name="appearance_uyghur_font_footer">Jenis huruf yang digunakan di seluruh aplikasi. Menyertakan beberapa font Uyghur; UKIJ Tuz adalah default.</string>
+    <string name="onboarding_language_title">Pilih bahasa Anda</string>
+    <string name="losfer_adding">Memverifikasi dan menambahkan…</string>
+    <string name="losfer_already_added">Penyedia LOSFER sudah ada. Perbarui kunci API-nya saja?</string>
+    <string name="losfer_api_key_label">Kunci API</string>
+    <string name="losfer_dialog_desc">Tempelkan kunci API LOSFER Anda di bawah ini. LOSFER menyediakan titik akhir yang kompatibel dengan OpenAI (https://api.losfer.cn/v1); aplikasi memverifikasi kunci, menambahkan penyedia dan mengambil daftar model secara otomatis.</string>
+    <string name="losfer_dialog_title">Hubungkan LOSFER</string>
+    <string name="losfer_failed_to_add">Gagal menambahkan penyedia LOSFER.</string>
+    <string name="losfer_get_key_hint">Cara mendapatkan kunci: masuk ke api.losfer.cn, buka “API Keys” dan buat satu.</string>
+    <string name="losfer_get_key_link">Dapatkan kunci API ↗</string>
+    <string name="losfer_invalid_key">Kunci tersebut ditolak oleh API LOSFER. Silakan periksa dan coba lagi.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Tidak dapat menghubungi API LOSFER. Periksa koneksi Anda dan coba lagi.</string>
+    <string name="losfer_oneclick_subtitle">Hubungkan gerbang API LOSFER dengan satu kunci</string>
+    <string name="losfer_oneclick_title">Pengaturan Satu Klik LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Penyedia LOSFER ditambahkan — daftar model diperbarui.</string>
+    <string name="losfer_validate_and_add">Verifikasi &amp; Tambahkan</string>
 </resources>

@@ -2468,4 +2468,28 @@
     <string name="mcp_dcr_no_pkce">Questo server di autorizzazione non supporta PKCE (S256), che è obbligatorio.</string>
     <string name="mcp_dcr_bad_registration_endpoint">L\'endpoint di registrazione non è valido.</string>
     <string name="mcp_dcr_registration_unreadable">Impossibile leggere la risposta di registrazione.</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autore</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repository LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Font uiguro</string>
+    <string name="appearance_uyghur_font_footer">Carattere utilizzato in tutta l\'app. Sono inclusi diversi font uiguri; UKIJ Tuz è quello predefinito.</string>
+    <string name="onboarding_language_title">Seleziona la lingua</string>
+    <string name="losfer_adding">Verifica e aggiunta in corso…</string>
+    <string name="losfer_already_added">Un provider LOSFER è già presente. Aggiornare la chiave API invece?</string>
+    <string name="losfer_api_key_label">Chiave API</string>
+    <string name="losfer_dialog_desc">Incolla qui sotto la tua chiave API LOSFER. LOSFER espone un endpoint compatibile con OpenAI (https://api.losfer.cn/v1); l\'app verifica la chiave, aggiunge il provider e recupera automaticamente l\'elenco dei modelli.</string>
+    <string name="losfer_dialog_title">Collega LOSFER</string>
+    <string name="losfer_failed_to_add">Impossibile aggiungere il provider LOSFER.</string>
+    <string name="losfer_get_key_hint">Come ottenere una chiave: accedi su api.losfer.cn, apri \"Chiave API\" e creane una.</string>
+    <string name="losfer_get_key_link">Ottieni una chiave API ↗</string>
+    <string name="losfer_invalid_key">Questa chiave è stata rifiutata dall\'API LOSFER. Verificala e riprova.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Impossibile raggiungere l\'API LOSFER. Controlla la connessione e riprova.</string>
+    <string name="losfer_oneclick_subtitle">Collega il gateway API LOSFER con una singola chiave</string>
+    <string name="losfer_oneclick_title">Configurazione LOSFER con un clic</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Provider LOSFER aggiunto — elenco modelli aggiornato.</string>
+    <string name="losfer_validate_and_add">Verifica e aggiungi</string>
 </resources>

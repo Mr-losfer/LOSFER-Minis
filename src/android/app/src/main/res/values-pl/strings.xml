@@ -1965,4 +1965,28 @@
     <string name="mcp_signin_not_signed_in">Niezalogowano</string>
     <string name="mcp_signin_sign_in">Zaloguj się</string>
     <string name="mcp_signin_reset_confirm">Zresetuj</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autor</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Repozytorium LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Czcionka ujgurska</string>
+    <string name="appearance_uyghur_font_footer">Czcionka używana w całej aplikacji. Dostarczane są różne czcionki ujgurskie; UKIJ Tuz jest domyślna.</string>
+    <string name="onboarding_language_title">Wybierz język</string>
+    <string name="losfer_adding">Weryfikowanie i dodawanie…</string>
+    <string name="losfer_already_added">Dostawca LOSFER już istnieje. Zaktualizować jego klucz API zamiast tego?</string>
+    <string name="losfer_api_key_label">Klucz API</string>
+    <string name="losfer_dialog_desc">Wklej poniżej swój klucz API LOSFER. LOSFER udostępnia punkt końcowy kompatybilny z OpenAI (https://api.losfer.cn/v1); aplikacja weryfikuje klucz, dodaje dostawcę i automatycznie pobiera listę modeli.</string>
+    <string name="losfer_dialog_title">Połącz LOSFER</string>
+    <string name="losfer_failed_to_add">Nie udało się dodać dostawcy LOSFER.</string>
+    <string name="losfer_get_key_hint">Jak uzyskać klucz: zaloguj się na api.losfer.cn, otwórz „Klucze API” i utwórz jeden.</string>
+    <string name="losfer_get_key_link">Pobierz klucz API ↗</string>
+    <string name="losfer_invalid_key">Ten klucz został odrzucony przez API LOSFER. Sprawdź go i spróbuj ponownie.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Nie można połączyć się z API LOSFER. Sprawdź połączenie i spróbuj ponownie.</string>
+    <string name="losfer_oneclick_subtitle">Połącz bramę API LOSFER za pomocą jednego klucza</string>
+    <string name="losfer_oneclick_title">Konfiguracja LOSFER jednym kliknięciem</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Dostawca LOSFER dodany — lista modeli odświeżona.</string>
+    <string name="losfer_validate_and_add">Weryfikuj i dodaj</string>
 </resources>

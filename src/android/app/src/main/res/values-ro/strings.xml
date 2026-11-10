@@ -1961,4 +1961,28 @@
     <string name="mcp_signin_not_signed_in">Neautentificat</string>
     <string name="mcp_signin_sign_in">Conectează-te</string>
     <string name="mcp_signin_reset_confirm">Resetează</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Autor</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">Depozit LOSFER Minis</string>
+    <string name="appearance_section_uyghur_font">Font uigur</string>
+    <string name="appearance_uyghur_font_footer">Tipul de font utilizat în întreaga aplicație. Sunt incluse mai multe fonturi uigure; UKIJ Tuz este implicit.</string>
+    <string name="onboarding_language_title">Selectează limba</string>
+    <string name="losfer_adding">Se verifică și se adaugă…</string>
+    <string name="losfer_already_added">Un furnizor LOSFER există deja. Vrei să îi actualizezi cheia API?</string>
+    <string name="losfer_api_key_label">Cheie API</string>
+    <string name="losfer_dialog_desc">Lipește-ți cheia API LOSFER mai jos. LOSFER expune un punct final compatibil cu OpenAI (https://api.losfer.cn/v1); aplicația verifică cheia, adaugă furnizorul și preia automat lista de modele.</string>
+    <string name="losfer_dialog_title">Conectează LOSFER</string>
+    <string name="losfer_failed_to_add">Adăugarea furnizorului LOSFER a eșuat.</string>
+    <string name="losfer_get_key_hint">Cum obții o cheie: autentifică-te pe api.losfer.cn, deschide „Chei API” și creează una.</string>
+    <string name="losfer_get_key_link">Obține o cheie API ↗</string>
+    <string name="losfer_invalid_key">Acea cheie a fost respinsă de API-ul LOSFER. Verifică-o și încearcă din nou.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">Nu s-a putut accesa API-ul LOSFER. Verifică conexiunea și încearcă din nou.</string>
+    <string name="losfer_oneclick_subtitle">Conectează portalul API LOSFER cu o singură cheie</string>
+    <string name="losfer_oneclick_title">Configurare cu un singur clic LOSFER</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">Furnizorul LOSFER a fost adăugat — lista de modele a fost actualizată.</string>
+    <string name="losfer_validate_and_add">Verifică și adaugă</string>
 </resources>

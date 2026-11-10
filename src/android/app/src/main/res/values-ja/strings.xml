@@ -2028,4 +2028,28 @@
     <string name="mcp_signin_not_signed_in">サインインしていません</string>
     <string name="mcp_signin_sign_in">サインイン</string>
     <string name="mcp_signin_reset_confirm">リセット</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">著者</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minisリポジトリ</string>
+    <string name="appearance_section_uyghur_font">ウイグル語フォント</string>
+    <string name="appearance_uyghur_font_footer">アプリ全体で使用される書体。複数のウイグル語フォントが同梱されており、デフォルトはUKIJ Tuzです。</string>
+    <string name="onboarding_language_title">言語を選択</string>
+    <string name="losfer_adding">確認中・追加中…</string>
+    <string name="losfer_already_added">LOSFERプロバイダーがすでに存在します。代わりにAPIキーを更新しますか？</string>
+    <string name="losfer_api_key_label">APIキー</string>
+    <string name="losfer_dialog_desc">Paste your LOSFER API key below. LOSFER exposes an OpenAI-compatible endpoint (https://api.losfer.cn/v1); the app verifies the key, adds the provider and fetches the model list automatically.</string>
+    <string name="losfer_dialog_title">LOSFERを接続</string>
+    <string name="losfer_failed_to_add">LOSFERプロバイダーの追加に失敗しました。</string>
+    <string name="losfer_get_key_hint">キーの取得方法：api.losfer.cnにログインし、「API Keys」を開いて作成してください。</string>
+    <string name="losfer_get_key_link">APIキーを取得 ↗</string>
+    <string name="losfer_invalid_key">そのキーはLOSFER APIによって拒否されました。確認してもう一度お試しください。</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">LOSFER APIに接続できませんでした。ネットワーク接続を確認してもう一度お試しください。</string>
+    <string name="losfer_oneclick_subtitle">1つのキーでLOSFER APIゲートウェイに接続</string>
+    <string name="losfer_oneclick_title">LOSFERワンクリック設定</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFERプロバイダーを追加しました — モデル一覧を更新しました。</string>
+    <string name="losfer_validate_and_add">確認＆追加</string>
 </resources>

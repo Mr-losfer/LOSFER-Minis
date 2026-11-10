@@ -1957,4 +1957,28 @@
     <string name="mcp_signin_not_signed_in">Oturum açılmadı</string>
     <string name="mcp_signin_sign_in">Oturum Aç</string>
     <string name="mcp_signin_reset_confirm">Sıfırla</string>
+
+    <!-- LOSFER Minis: one-click setup, author & font settings -->
+    <string name="about_author_label">Yazar</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis Deposu</string>
+    <string name="appearance_section_uyghur_font">Uygur Yazı Tipi</string>
+    <string name="appearance_uyghur_font_footer">Uygulama genelinde kullanılan yazı tipi. Birkaç Uygur yazı tipi içerir; varsayılan UKIJ Tuz\'tur.</string>
+    <string name="onboarding_language_title">Dilini seç</string>
+    <string name="losfer_adding">Doğrulanıyor ve ekleniyor…</string>
+    <string name="losfer_already_added">Bir LOSFER sağlayıcısı zaten var. Bunun API anahtarını güncellemek ister misin?</string>
+    <string name="losfer_api_key_label">API Anahtarı</string>
+    <string name="losfer_dialog_desc">LOSFER API anahtarını aşağıya yapıştır. LOSFER, OpenAI uyumlu bir uç nokta sunar (https://api.losfer.cn/v1); uygulama anahtarı doğrular, sağlayıcıyı ekler ve model listesini otomatik olarak çeker.</string>
+    <string name="losfer_dialog_title">LOSFER\'ı Bağla</string>
+    <string name="losfer_failed_to_add">LOSFER sağlayıcısı eklenemedi.</string>
+    <string name="losfer_get_key_hint">Anahtar nasıl alınır: api.losfer.cn adresinde oturum aç, \"API Anahtarları\"nı aç ve bir tane oluştur.</string>
+    <string name="losfer_get_key_link">API anahtarı al ↗</string>
+    <string name="losfer_invalid_key">Bu anahtar LOSFER API tarafından reddedildi. Lütfen kontrol et ve tekrar dene.</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_network_error">LOSFER API\'sine ulaşılamadı. Bağlantını kontrol et ve tekrar dene.</string>
+    <string name="losfer_oneclick_subtitle">LOSFER API ağ geçidini tek bir anahtarla bağla</string>
+    <string name="losfer_oneclick_title">LOSFER Tek Tıkla Kurulum</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_success">LOSFER sağlayıcısı eklendi — model listesi güncellendi.</string>
+    <string name="losfer_validate_and_add">Doğrula &amp; Ekle</string>
 </resources>
