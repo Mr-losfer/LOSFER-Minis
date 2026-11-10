@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Minis</string>
+    <string name="app_name">LOSFER Minis</string>
     <string name="new_chat">New Chat</string>
     <string name="settings">Settings</string>
     <string name="providers">Providers</string>
@@ -2721,4 +2721,34 @@
     <string name="mcp_dcr_registration_unreadable">The registration response could not be read.</string>
     <string name="mcp_dcr_http_status">%1$s returned HTTP %2$d.</string>
     <string name="mcp_dcr_unreadable">%1$s returned data that could not be read.</string>
+
+    <!-- [LOSFER] Uyghur font picker -->
+    <string name="appearance_section_uyghur_font">Uyghur Font</string>
+    <string name="appearance_uyghur_font_footer">Typeface used across the app. Ships several Uyghur fonts; ALKATIP Asliya is the default.</string>
+
+    <!-- [LOSFER] One-click LOSFER provider setup -->
+    <string name="losfer_oneclick_title">LOSFER One-Click Setup</string>
+    <string name="losfer_oneclick_subtitle">Connect the LOSFER API gateway with a single key</string>
+    <string name="losfer_dialog_title">Connect LOSFER</string>
+    <string name="losfer_dialog_desc">Paste your LOSFER API key below. LOSFER exposes an OpenAI-compatible endpoint (https://api.losfer.cn/v1); the app verifies the key, adds the provider and fetches the model list automatically.</string>
+    <string name="losfer_get_key_hint">How to get a key: log in at api.losfer.cn, open “API Keys” and create one.</string>
+    <string name="losfer_get_key_link">Get an API key ↗</string>
+    <string name="losfer_key_url">https://api.losfer.cn/pc/api-list/keys/</string>
+    <string name="losfer_api_key_label">API Key</string>
+    <string name="losfer_validate_and_add">Verify &amp; Add</string>
+    <string name="losfer_adding">Verifying and adding…</string>
+    <string name="losfer_invalid_key">That key was rejected by the LOSFER API. Please check it and try again.</string>
+    <string name="losfer_network_error">Could not reach the LOSFER API. Check your connection and try again.</string>
+    <string name="losfer_success">LOSFER provider added — model list refreshed.</string>
+    <string name="losfer_already_added">A LOSFER provider already exists. Update its API key instead?</string>
+    <string name="losfer_provider_label">LOSFER</string>
+    <string name="losfer_failed_to_add">Failed to add the LOSFER provider.</string>
+
+    <!-- [LOSFER] About page -->
+    <string name="about_author_label">Author</string>
+    <string name="about_author_value">Mr-losfer</string>
+    <string name="about_losfer_repo">LOSFER Minis Repository</string>
+
+    <!-- [LOSFER] First-launch language step -->
+    <string name="onboarding_language_title">Select your language</string>
 </resources>

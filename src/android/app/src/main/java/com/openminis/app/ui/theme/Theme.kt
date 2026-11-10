@@ -159,7 +159,15 @@ fun MinisTheme(
     content: @Composable () -> Unit,
 ) {
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
-    val typography = scaledTypography(fontScale)
+    // [LOSFER] Uyghur is the app's RTL layout language: alignment follows the
+    // layout direction (Start = right edge) instead of the pinned Left.
+    val rtl = com.openminis.app.i18n.LocaleWrap.isRtlLanguage(
+        androidx.compose.ui.platform.LocalContext.current
+    )
+    val fontFamily = UyghurFonts.selectedFamily(
+        androidx.compose.ui.platform.LocalContext.current
+    )
+    val typography = scaledTypography(fontScale, rtl, fontFamily)
     val chatPalette = if (darkTheme) DarkChatPalette else LightChatPalette
 
     MaterialTheme(
@@ -206,26 +214,40 @@ private fun TextStyle.scale(factor: Float): TextStyle =
  * would follow an RTL paragraph to the right edge) keeps every label where it
  * sits today. For left-to-right text both are what it already had.
  */
-private fun TextStyle.bidi(): TextStyle =
-    copy(textDirection = TextDirection.Content, textAlign = TextAlign.Left)
+private fun TextStyle.bidi(rtl: Boolean = false): TextStyle =
+    if (rtl) {
+        // [LOSFER-ug-rtl] Under an RTL layout Compose's default alignment is
+        // Start, which resolves to the RIGHT edge — exactly what a Uyghur
+        // reader expects. Keep it unspecified (don't pin Left) and let each
+        // paragraph take its direction from its content.
+        copy(textDirection = TextDirection.Content)
+    } else {
+        copy(textDirection = TextDirection.Content, textAlign = TextAlign.Left)
+    }
 
-private fun scaledTypography(factor: Float): Typography {
+private fun scaledTypography(
+    factor: Float,
+    rtl: Boolean = false,
+    fontFamily: androidx.compose.ui.text.font.FontFamily? = null,
+): Typography {
     val base = Typography()
+    fun androidx.compose.ui.text.TextStyle.custom(): TextStyle =
+        scale(factor).let { if (fontFamily != null) it.copy(fontFamily = fontFamily) else it }.bidi(rtl)
     return Typography(
-        displayLarge = base.displayLarge.scale(factor).bidi(),
-        displayMedium = base.displayMedium.scale(factor).bidi(),
-        displaySmall = base.displaySmall.scale(factor).bidi(),
-        headlineLarge = base.headlineLarge.scale(factor).bidi(),
-        headlineMedium = base.headlineMedium.scale(factor).bidi(),
-        headlineSmall = base.headlineSmall.scale(factor).bidi(),
-        titleLarge = base.titleLarge.scale(factor).bidi(),
-        titleMedium = base.titleMedium.scale(factor).bidi(),
-        titleSmall = base.titleSmall.scale(factor).bidi(),
-        bodyLarge = base.bodyLarge.scale(factor).bidi(),
-        bodyMedium = base.bodyMedium.scale(factor).bidi(),
-        bodySmall = base.bodySmall.scale(factor).bidi(),
-        labelLarge = base.labelLarge.scale(factor).bidi(),
-        labelMedium = base.labelMedium.scale(factor).bidi(),
-        labelSmall = base.labelSmall.scale(factor).bidi(),
+        displayLarge = base.displayLarge.custom(),
+        displayMedium = base.displayMedium.custom(),
+        displaySmall = base.displaySmall.custom(),
+        headlineLarge = base.headlineLarge.custom(),
+        headlineMedium = base.headlineMedium.custom(),
+        headlineSmall = base.headlineSmall.custom(),
+        titleLarge = base.titleLarge.custom(),
+        titleMedium = base.titleMedium.custom(),
+        titleSmall = base.titleSmall.custom(),
+        bodyLarge = base.bodyLarge.custom(),
+        bodyMedium = base.bodyMedium.custom(),
+        bodySmall = base.bodySmall.custom(),
+        labelLarge = base.labelLarge.custom(),
+        labelMedium = base.labelMedium.custom(),
+        labelSmall = base.labelSmall.custom(),
     )
 }

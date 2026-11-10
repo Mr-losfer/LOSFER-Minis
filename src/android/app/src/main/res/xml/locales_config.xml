@@ -73,4 +73,9 @@
          Right-to-left text, but the app keeps its left-to-right layout
          (LocaleWrap.forceLtr), so no screen is mirrored. -->
     <locale android:name="fa"/>
+    <!-- Uyghur (ug). Arabic-script language; the whole app lays out
+         RIGHT-TO-LEFT when this language is selected (LOSFER Minis change —
+         unlike Persian, Uyghur mirrors the layout). locale_wrap resolves the
+         direction from the locale itself and skips the forceLtr override. -->
+    <locale android:name="ug"/>
 </locale-config>

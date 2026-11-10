@@ -52,6 +52,7 @@ import com.openminis.app.ui.components.MinisTextButton
 
 /**
  * Multi-step onboarding flow shown on first launch.
+ * Step 0: Language selection (Apple-welcome style — [LOSFER])
  * Step 1: Welcome + add at least one provider API key
  * Step 2: Select up to 3 models to form the default model group
  */
@@ -60,12 +61,86 @@ fun OnboardingScreen(
     providerRepository: ProviderRepository,
     onComplete: () -> Unit,
 ) {
-    var step by remember { mutableStateOf(0) }
+    // rememberSaveable so the step survives the Activity recreation the
+    // language change triggers (LocaleManager on 13+, recreate() pre-13).
+    var step by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(0) }
 
     when (step) {
-        0 -> WelcomeStep(onNext = { step = 1 })
-        1 -> ApiKeyStep(providerRepository = providerRepository, onNext = { step = 2 }, onSkip = onComplete)
-        2 -> ModelSelectionStep(providerRepository = providerRepository, onComplete = onComplete)
+        0 -> LanguageStep(onNext = { step = 1 })
+        1 -> WelcomeStep(onNext = { step = 2 })
+        2 -> ApiKeyStep(providerRepository = providerRepository, onNext = { step = 3 }, onSkip = onComplete)
+        3 -> ModelSelectionStep(providerRepository = providerRepository, onComplete = onComplete)
+    }
+}
+
+/**
+ * [LOSFER] First-launch language step, Apple-welcome style: a short greeting
+ * and the language list. Tapping a language persists the choice, applies it
+ * at once and moves on — every following screen is already in the chosen
+ * language. Uyghur additionally flips the whole app to RTL (see LocaleWrap).
+ */
+@Composable
+private fun LanguageStep(onNext: () -> Unit) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val options = com.openminis.app.ui.settings.languageOptions
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center,
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(24.dp),
+        ) {
+            Text(
+                "\uD83C\uDF10",
+                fontSize = 56.sp,
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                stringResource(R.string.onboarding_language_title),
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(Modifier.height(24.dp))
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(options) { lang ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                com.openminis.app.i18n.LocaleWrap.applyLanguage(context, lang.code)
+                                if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
+                                    // Pre-13: no LocaleManager — recreate so the
+                                    // wrapped base context picks the language up.
+                                    // `step` survives via rememberSaveable.
+                                    (context as? android.app.Activity)?.recreate()
+                                }
+                                onNext()
+                            },
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(lang.flag, fontSize = 20.sp)
+                            Spacer(Modifier.width(12.dp))
+                            Text(
+                                if (lang.code.isEmpty()) stringResource(R.string.appearance_theme_system) else lang.label,
+                                style = MaterialTheme.typography.bodyLarge,
+                                fontWeight = FontWeight.Medium,
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -15,6 +15,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.Dashboard
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -109,15 +111,29 @@ fun AboutScreen(onBack: () -> Unit) {
         }
 
         SettingsSection(header = stringResource(R.string.about_links)) {
+            // [LOSFER] Author row.
+            SettingsRow(
+                icon = Icons.Outlined.Person,
+                iconColor = tileBlue,
+                title = stringResource(R.string.about_author_label),
+                subtitle = stringResource(R.string.about_author_value),
+                onClick = { openExternalUrl(context, "https://github.com/Mr-losfer") },
+                trailing = { ExternalLinkIcon() },
+            )
             SettingsRow(
                 icon = Icons.Outlined.Code,
                 iconColor = tileBlue,
+                title = stringResource(R.string.about_losfer_repo),
+                // LOSFER Minis lives in its own repository; updates and the
+                // in-app updater read releases from the same place.
+                onClick = { openExternalUrl(context, "https://github.com/Mr-losfer/LOSFER-Minis") },
+                trailing = { ExternalLinkIcon() },
+            )
+            SettingsRow(
+                icon = Icons.Outlined.Dashboard,
+                iconColor = tileBlue,
                 title = stringResource(R.string.about_github_repository),
-                // Settings → ABOUT siblings (Privacy Policy / Submit GitHub
-                // Issues) all use openExternalUrl directly. The
-                // LocalInAppBrowserLauncher ambient defaults to a no-op when
-                // no InAppBrowserHost is in the tree above this screen — and
-                // nothing wraps Settings, so the row used to be a dead tap.
+                // Upstream project this build is based on.
                 onClick = { openExternalUrl(context, "https://github.com/OpenMinis/OpenMinis") },
                 trailing = { ExternalLinkIcon() },
                 showDivider = false,

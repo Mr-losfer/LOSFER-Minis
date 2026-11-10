@@ -173,11 +173,12 @@ private val fontScaleCodes = listOf("XS", "", "", "", "", "XL")
 private val fontScaleValues = listOf(-2, -1, 0, 1, 2, 3)
 private val fontScaleMultipliers = listOf(0.88f, 0.94f, 1.0f, 1.06f, 1.12f, 1.21f)
 
-private data class LanguageOption(val code: String, val flag: String, val label: String)
+data class LanguageOption(val code: String, val flag: String, val label: String)
 // "System" label is resolved at call-site via stringResource so it follows
 // the user's chosen UI language. The remaining entries are language self-names
 // and stay as literals \u2014 Chinese is always "\u7B80\u4F53\u4E2D\u6587", regardless of UI locale.
-private val languageOptions = listOf(
+// [LOSFER] public: the first-launch onboarding language step renders the same list.
+val languageOptions = listOf(
     LanguageOption("", "\uD83C\uDF10", ""),
     LanguageOption("en", "\uD83C\uDDFA\uD83C\uDDF8", "English"),
     LanguageOption("zh", "\uD83C\uDDE8\uD83C\uDDF3", "简体中文"),
@@ -260,6 +261,10 @@ private val languageOptions = listOf(
     // The app's only right-to-left language; its text is Persian but the
     // layout stays left-to-right - see LocaleWrap.forceLtr.
     LanguageOption("fa", "\uD83C\uDDEE\uD83C\uDDF7", "\u0641\u0627\u0631\u0633\u06CC"),
+    // ug: Uyghur (ئۇيغۇرچە). Arabic-script, right-to-left — when selected the
+    // whole app mirrors to RTL (see LocaleWrap). No country flag on purpose:
+    // use the crescent-star-free globe glyph so the row always renders.
+    LanguageOption("ug", "\uD83C\uDF10", "\u0626\u06C7\u064A\u063A\u06C7\u0631\u0686\u06D5"),
 )
 
 fun getAppearancePrefs(context: Context): SharedPreferences =
@@ -301,6 +306,12 @@ fun AppearanceScreen(
     var messageLevel by remember { mutableIntStateOf(prefs.getInt(KEY_FONT_MESSAGE, 0)) }
     var appBaseLevel by remember { mutableIntStateOf(prefs.getInt(KEY_FONT_APP_BASE, 0)) }
     var selectedLanguage by remember { mutableStateOf(prefs.getString(KEY_LANGUAGE, "") ?: "") }
+    var selectedUyghurFont by remember {
+        mutableStateOf(
+            prefs.getString(com.openminis.app.ui.theme.UyghurFonts.PREF_KEY, null)
+                ?: com.openminis.app.ui.theme.UyghurFonts.DEFAULT
+        )
+    }
     var selectedAppIcon by remember { mutableStateOf(AppIconRepository.current(context)) }
 
     val fontsModified = chatInputLevel != 0 || messageLevel != 0 || appBaseLevel != 0
@@ -843,6 +854,30 @@ fun AppearanceScreen(
                         Text(lang.flag, fontSize = 22.sp, modifier = Modifier.width(30.dp))
                     },
                     showDivider = idx < languageOptions.size - 1,
+                )
+            }
+        }
+
+        // -- Uyghur Font ([LOSFER] يېڭى ئىقتىدار) --
+        // Typeface picker for the Uyghur (Arabic-script) text. Applies
+        // app-wide through MinisTheme's typography; default ALKATIP Asliya.
+        SettingsSection(
+            header = stringResource(R.string.appearance_section_uyghur_font),
+            footer = stringResource(R.string.appearance_uyghur_font_footer),
+        ) {
+            val fontOptions = com.openminis.app.ui.theme.UyghurFonts.options
+            fontOptions.forEachIndexed { idx, (key, label) ->
+                SettingsChoiceRow(
+                    title = label,
+                    selected = selectedUyghurFont == key,
+                    onSelect = {
+                        selectedUyghurFont = key
+                        prefs.edit().putString(
+                            com.openminis.app.ui.theme.UyghurFonts.PREF_KEY, key
+                        ).apply()
+                        (context as? android.app.Activity)?.recreate()
+                    },
+                    showDivider = idx < fontOptions.size - 1,
                 )
             }
         }

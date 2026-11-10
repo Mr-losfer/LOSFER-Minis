@@ -147,6 +147,26 @@ fun SettingsScreen(
                 .padding(padding)
                 .verticalScroll(rememberScrollState()),
         ) {
+            // -- LOSFER One-Click Setup ([LOSFER] sits above LLM Providers) --
+            val losferRepo = com.openminis.app.ui.quota.rememberProviderRepository()
+            var showLosferDialog by remember { mutableStateOf(false) }
+            SettingsSection(
+                title = stringResource(R.string.losfer_oneclick_title),
+                footer = stringResource(R.string.losfer_oneclick_subtitle),
+            ) {
+                SettingsItem(
+                    icon = Icons.Outlined.AutoAwesome,
+                    iconColor = Color(0xFF7C4DFF),
+                    title = stringResource(R.string.losfer_oneclick_title),
+                    subtitle = stringResource(R.string.losfer_oneclick_subtitle),
+                    onClick = { showLosferDialog = true },
+                    showDivider = false,
+                )
+            }
+            if (showLosferDialog) {
+                LOSFERSetupDialog(repo = losferRepo, onDismiss = { showLosferDialog = false })
+            }
+
             // -- LLM Providers --
             SettingsSection(
                 title = stringResource(R.string.settings_section_llm_providers),

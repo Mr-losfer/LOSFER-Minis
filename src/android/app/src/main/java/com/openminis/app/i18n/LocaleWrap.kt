@@ -59,8 +59,43 @@ object LocaleWrap {
         }
         // [T-fa-locale] setLocales() just derived the layout direction from
         // the locale; keep it left-to-right (see forceLtr).
-        config.setLayoutDirection(Locale.ENGLISH)
+        // [LOSFER-ug-rtl] EXCEPT Uyghur (ug): the whole app lays out
+        // right-to-left for it, so the locale-derived direction is kept.
+        if (code != RTL_LANGUAGE) config.setLayoutDirection(Locale.ENGLISH)
         return base.createConfigurationContext(config)
+    }
+
+    /**
+     * The one language whose selection mirrors the whole app to a
+     * right-to-left layout. Persian (fa) keeps today's LTR layout — only its
+     * paragraphs run RTL — but Uyghur (Arabic script) users read with the
+     * chrome on the right, so the layout direction follows the locale.
+     */
+    const val RTL_LANGUAGE = "ug"
+
+    /** True when the saved in-app language wants the RTL layout. */
+    fun isRtlLanguage(context: Context): Boolean =
+        context.getSharedPreferences(PREF_APPEARANCE, Context.MODE_PRIVATE)
+            .getString(KEY_LANGUAGE, "").orEmpty() == RTL_LANGUAGE
+
+    /**
+     * [LOSFER] Persist the in-app language and apply it immediately. Used by
+     * the first-launch onboarding language step. On Android 13+ this goes
+     * through LocaleManager (the system recreates activities on the change);
+     * pre-13 the saved pref is picked up by [wrap] on the next
+     * attachBaseContext — the caller recreates the Activity to apply at once.
+     */
+    fun applyLanguage(context: Context, code: String) {
+        context.getSharedPreferences(PREF_APPEARANCE, Context.MODE_PRIVATE)
+            .edit().putString(KEY_LANGUAGE, code).apply()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val lm = context.getSystemService(android.app.LocaleManager::class.java)
+            lm?.applicationLocales = if (code.isEmpty()) {
+                LocaleList.getEmptyLocaleList()
+            } else {
+                LocaleList.forLanguageTags(code)
+            }
+        }
     }
 
     /**
@@ -73,6 +108,10 @@ object LocaleWrap {
      * picks its own text direction from its content, so Persian sentences read
      * right to left inside their boxes.
      *
+     * [LOSFER-ug-rtl] Uyghur (ug) opts OUT of the LTR override: when it is the
+     * saved language the RTL configuration from the system / [wrap] is kept
+     * and every screen mirrors.
+     *
      * One place covers everything: every Activity wraps its base context
      * here, the Configuration's layout direction is what Views resolve
      * against, and Compose's LocalLayoutDirection is read from it.
@@ -84,6 +123,7 @@ object LocaleWrap {
      * values.
      */
     private fun forceLtr(base: Context): Context {
+        if (isRtlLanguage(base)) return base
         if (base.resources.configuration.layoutDirection != View.LAYOUT_DIRECTION_RTL) return base
         val ltr = Configuration().apply {
             fontScale = 0f
