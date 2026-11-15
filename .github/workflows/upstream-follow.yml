@@ -102,10 +102,10 @@ jobs:
         run: |
           git config user.name "LOSFER Minis Bot"
           git config user.email "bot@losfer.cn"
-          git add README.md docs/UPSTREAM_TRACKING.md upstream-state.json \
-                  src/android/app/build.gradle.kts .gitignore \
-                  src/android/signing/losfer-debug.keystore \
-                  scripts/ .github/workflows/upstream-follow.yml RELEASE_NOTES.md 2>/dev/null || true
+          # ھەر بىر ئۆزگىرىش يوللىنىدۇ: نەشر خاتىرىسى، ئىز قوغلاش ھالىتى،
+          # قۇرۇش قوراللىرى، rclone.aar ۋە يېڭىلاش سىياسىتىنىڭ كودى.
+          # dist/ ۋە build/ لار .gitignore تەرىپىدىن چىقىرىۋېتىلىدۇ.
+          git add -A
           if git diff --cached --quiet; then
             echo "ئۆزگىرىش يوق"
           elif [ "$HAS_UPDATE" = "true" ]; then
