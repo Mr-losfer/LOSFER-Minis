@@ -28,6 +28,10 @@ render.experimental.xml
 # Keystore files
 *.jks
 *.keystore
+# [LOSFER] The debug signing key is deliberately tracked: every automated
+# build (local or CI) must produce the SAME signature so a new APK installs
+# over the previous one. This is a public debug key, not a store signing key.
+!src/android/signing/losfer-debug.keystore
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
@@ -153,10 +157,17 @@ deps/lame-3.100/**/*.lai
 deps/lame-3.100/**/.libs/
 deps/lame-3.100/**/.deps/
 
-# rclone.aar is a build artifact of deps/build_rclone_android.sh (~15MB),
-# not a vendored binary — same treatment as the iOS Rclone.xcframework it is
-# built alongside (deps/build_rclone_ios.sh).
-src/android/app/libs/rclone.aar
+# [LOSFER] Release packages staged by scripts/build_release.sh; they are
+# uploaded to GitHub Releases, never committed.
+dist/
+
+# [LOSFER] rclone.aar (~15MB, built by deps/build_rclone_android.sh) is
+# deliberately TRACKED here. Upstream ignores it as a build artifact, but the
+# automated release workflow runs on a clean runner with no Go/gomobile cache;
+# tracking the AAR built from the committed Go sources keeps every release
+# build reproducible and removes a whole toolchain (Go + gomobile + NDK
+# cross-compile) from the release path. Rebuild it with
+# deps/build_rclone_android.sh whenever deps/rclone-mobile changes.
 
 # [T-ios-aojit] AOJIT images: hundreds of MB of assembly, kept out of git
 # (see deps/aot/README.md). The README and workloads are tracked.

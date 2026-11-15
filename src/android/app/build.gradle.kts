@@ -36,8 +36,8 @@ android {
         applicationId = "cn.losfer.minis"
         minSdk = 26
         targetSdk = 35
-        versionCode = 42
-        versionName = "1.20"
+        versionCode = 44
+        versionName = "1.22"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -82,6 +82,21 @@ android {
         cmake {
             path = file("src/main/cpp/CMakeLists.txt")
             version = "3.22.1"
+        }
+    }
+
+    // [LOSFER] Pin the debug signing key to a file in this repository. AGP
+    // otherwise generates a fresh random key in ~/.android/debug.keystore for
+    // every machine, so a package built on CI cannot be installed over one
+    // built locally. Keeping the (public, non-store) debug key in the tree
+    // makes every release — local, CI, or a future contributor's — sign
+    // identically. See docs/UPSTREAM_TRACKING.md.
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file("signing/losfer-debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
         }
     }
 

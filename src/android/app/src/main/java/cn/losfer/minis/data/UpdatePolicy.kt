@@ -93,20 +93,37 @@ object UpdatePolicy {
     /** What an APK's file name says about it. */
     data class ApkName(val version: String, val build: Int, val abi: String)
 
-    /** The release protocol: `^MinisApp-(?<ver>.+)-build(?<build>\d+)-(?<abi>[\w-]+)\.apk$`. */
+    /** The upstream release protocol: `^MinisApp-(?<ver>.+)-build(?<build>\d+)-(?<abi>[\w-]+)\.apk$`. */
     private val APK_NAME = Regex("^MinisApp-(.+)-build(\\d+)-([\\w-]+)\\.apk$")
 
     /**
+     * [LOSFER] Our own release protocol, so builds served from
+     * `Mr-losfer/LOSFER-Minis` carry the version, the build counter and the
+     * ABI in the file name exactly like upstream builds do:
+     * `LOSFER-Minis-1.21-build43-arm64-v8a.apk`. Without this the updater
+     * could only fall back to the tag name, the beta channel could never
+     * compare build numbers, and a release holding several packages had no
+     * way to tell one ABI from another.
+     */
+    private val LOSFER_APK_NAME = Regex("^LOSFER-Minis-(.+)-build(\\d+)-([\\w-]+)\\.apk$")
+
+    /**
+     * `LOSFER-Minis-1.21-build43-arm64-v8a.apk` -> (1.21, 43, arm64-v8a),
      * `MinisApp-1.16-beta.3-build31-arm64-v8a.apk` -> (1.16-beta.3, 31,
-     * arm64-v8a). Null for a name outside the protocol - including the
-     * pre-build history (`MinisApp-1.14-arm64-v8a.apk`), whose build is
-     * unknown and which counts by version name on the stable channel only.
+     * arm64-v8a). Null for a name outside both protocols - including the
+     * pre-build history (`MinisApp-1.14-arm64-v8a.apk`) and the early LOSFER
+     * releases (`LOSFER-Minis-v1.20.apk`), whose build is unknown and which
+     * count by version name on the stable channel only.
      */
     fun parseApkName(name: String): ApkName? {
-        val m = APK_NAME.matchEntire(name.trim()) ?: return null
-        val build = m.groupValues[2].toIntOrNull() ?: return null
-        val ver = m.groupValues[1].takeIf { it.isNotBlank() } ?: return null
-        return ApkName(ver, build, m.groupValues[3])
+        val n = name.trim()
+        for (re in listOf(LOSFER_APK_NAME, APK_NAME)) {
+            val m = re.matchEntire(n) ?: continue
+            val build = m.groupValues[2].toIntOrNull() ?: return null
+            val ver = m.groupValues[1].takeIf { it.isNotBlank() } ?: return null
+            return ApkName(ver.removePrefix("v").removePrefix("V"), build, m.groupValues[3])
+        }
+        return null
     }
 
     fun buildFromApkName(name: String): Int? = parseApkName(name)?.build
@@ -242,6 +259,25 @@ object UpdatePolicy {
     /** The best newer candidate, or null when the device is up to date. */
     fun pickUpdate(candidates: List<Candidate>, channel: Channel, localName: String, localCode: Int): Candidate? =
         candidates.filter { isNewer(it, channel, localName, localCode) }.maxWithOrNull(::compareCandidates)
+
+    // ── Formal package list (LOSFER) ─────────────────────────────────────────
+
+    /** Every installable artifact a release carries: APKs and AABs. */
+    fun installablePackages(release: Release): List<Asset> =
+        release.assets.filter {
+            it.name.endsWith(".apk", ignoreCase = true) || it.name.endsWith(".aab", ignoreCase = true)
+        }
+
+    /**
+     * The formal package list: published (non-draft), stable (non-prerelease)
+     * releases paired with each of their installable artifacts. Drafts, beta
+     * builds and legacy `-preview` releases never appear — the same rule the
+     * stable channel uses. Every package of a release is kept, so a release
+     * with several ABIs or an AAB is listed as several packages.
+     */
+    fun formalPackages(releases: List<Release>): List<Pair<Release, Asset>> =
+        releases.filter { eligible(it, Channel.STABLE) }
+            .flatMap { r -> installablePackages(r).map { r to it } }
 
     // ── Automatic checks ────────────────────────────────────────────────────
 

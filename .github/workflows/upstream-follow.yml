@@ -1,0 +1,137 @@
+# ئەسلى ئامبارنى ئىز قوغلاش ۋە رەسمىي نەشر چىقىرىش
+#
+# ھەر كۈنى ئەسلى ئامبار (OpenMinis/OpenMinis) نى تەكشۈرىدۇ. يېڭى نەشر،
+# خەتكۈچ ياكى كود يوللاش بايقالسا: نەشر نومۇرى ئۆستۈرۈلىدۇ → بارلىق
+# ئورۇنلاشتۇرما بولاقلار قۇرۇلىدۇ → git غا يوللىنىدۇ → رەسمىي
+# (draft ئەمەس، prerelease ئەمەس) Releases تىزىملىكىگە يوللىنىدۇ.
+
+name: ئەسلى ئامبارنى ئىز قوغلاش ۋە رەسمىي نەشر
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "يېڭىلىق بولمىسىمۇ يېڭى نەشر چىقىرىش"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: losfer-minis-upstream-follow
+  cancel-in-progress: false
+
+jobs:
+  follow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - name: ئامبارنى ئېلىش
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Go 1.25.4
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25.4"
+          cache: false
+
+      - name: gawk ۋە Android SDK
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gawk
+          sudo update-alternatives --set awk /usr/bin/gawk
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
+            "platforms;android-36" "build-tools;36.0.0" \
+            "ndk;28.0.12433566" "cmake;3.22.1"
+
+      - name: ئەسلى ئامبار ھالىتىنى تەكشۈرۈش
+        id: upstream
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event.inputs.force }}
+        run: |
+          python3 scripts/track_upstream.py --check --write > /tmp/upstream.json
+          python3 - <<'PY'
+          import json, os
+          d = json.load(open('/tmp/upstream.json', encoding='utf-8'))
+          force = os.environ.get('FORCE', 'false') == 'true'
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as f:
+              f.write("has_update=%s\n" % ('true' if d['has_update'] or force else 'false'))
+              f.write("latest_tag=%s\n" % d['latest_release_tag'])
+          print("يېڭىلىق:", d['has_update'], "ئەسلى نەشر:", d['latest_release_tag'])
+          PY
+
+      - name: نەشر نومۇرىنى ئۆستۈرۈش
+        id: version
+        if: steps.upstream.outputs.has_update == 'true'
+        run: python3 scripts/bump_version.py
+
+      - name: بارلىق ئورۇنلاشتۇرما بولاقلارنى قۇرۇش
+        if: steps.upstream.outputs.has_update == 'true'
+        env:
+          GOPROXY: https://proxy.golang.org,direct
+        run: |
+          export ANDROID_NDK_HOME="$ANDROID_HOME/ndk/28.0.12433566"
+          bash scripts/build_release.sh
+
+      - name: ئۇيغۇرچە نەشر خاتىرىسى
+        if: steps.upstream.outputs.has_update == 'true'
+        run: |
+          python3 scripts/make_release_notes.py \
+            --version "${{ steps.version.outputs.version_name }}" \
+            --code "${{ steps.version.outputs.version_code }}" \
+            --signature same --out RELEASE_NOTES.md
+
+      - name: git غا يوللاش
+        env:
+          HAS_UPDATE: ${{ steps.upstream.outputs.has_update }}
+          VERSION: ${{ steps.version.outputs.version_name }}
+        run: |
+          git config user.name "LOSFER Minis Bot"
+          git config user.email "bot@losfer.cn"
+          git add README.md docs/UPSTREAM_TRACKING.md upstream-state.json \
+                  src/android/app/build.gradle.kts .gitignore \
+                  src/android/signing/losfer-debug.keystore \
+                  scripts/ .github/workflows/upstream-follow.yml RELEASE_NOTES.md 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "ئۆزگىرىش يوق"
+          elif [ "$HAS_UPDATE" = "true" ]; then
+            git commit -m "ئەسلى ئامبار يېڭىلىقى ئىز قوغلاندى ۋە $VERSION رەسمىي نەشرى چىقىرىلدى"
+          else
+            git commit -m "ئەسلى ئامبار ھالىتى يېڭىلاندى"
+          fi
+          git push
+
+      - name: رەسمىي Releases تىزىملىكىگە يوللاش
+        if: steps.upstream.outputs.has_update == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version_name }}
+        run: |
+          gh release create "$TAG" dist/* \
+            --repo "${{ github.repository }}" \
+            --title "LOSFER Minis $VERSION" \
+            --notes-file RELEASE_NOTES.md \
+            --latest
+
+      - name: قۇرۇلغان بولاقلارنى ساقلاش
+        if: steps.upstream.outputs.has_update == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: losfer-minis-${{ steps.version.outputs.version_name }}
+          path: dist/
+          retention-days: 30

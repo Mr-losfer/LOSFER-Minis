@@ -244,4 +244,63 @@ class UpdatePolicyTest {
         assertEquals(Channel.STABLE, Channel.parse(null))
         assertEquals(Channel.STABLE, Channel.parse("nightly"))
     }
+
+    // ── LOSFER release protocol & the formal package list ───────────────────
+
+    @Test
+    fun `LOSFER package names carry version, build and ABI`() {
+        val p = UpdatePolicy::parseApkName
+        assertEquals(UpdatePolicy.ApkName("1.21", 43, "arm64-v8a"), p("LOSFER-Minis-1.21-build43-arm64-v8a.apk"))
+        assertEquals(UpdatePolicy.ApkName("1.22-beta.1", 44, "arm64-v8a"), p("LOSFER-Minis-1.22-beta.1-build44-arm64-v8a.apk"))
+        assertEquals(43, UpdatePolicy.buildFromApkName("LOSFER-Minis-1.21-build43-arm64-v8a.apk"))
+        assertEquals("1.21", UpdatePolicy.versionFromApkName("LOSFER-Minis-1.21-build43-arm64-v8a.apk"))
+        // Following upstream: its protocol still parses unchanged.
+        assertEquals(UpdatePolicy.ApkName("1.16", 32, "arm64-v8a"), p("MinisApp-1.16-build32-arm64-v8a.apk"))
+        // Early LOSFER releases keep the legacy tag-based comparison.
+        assertNull(p("LOSFER-Minis-v1.20.apk"))
+    }
+
+    @Test
+    fun `LOSFER packages are chosen by ABI and the beta channel can compare builds`() {
+        val arm64 = a("LOSFER-Minis-1.21-build43-arm64-v8a.apk")
+        val arm32 = a("LOSFER-Minis-1.21-build43-armeabi-v7a.apk")
+        assertEquals(arm64.name, UpdatePolicy.chooseApk(listOf(arm32, arm64), listOf("arm64-v8a", "armeabi-v7a"))!!.name)
+        assertEquals(arm32.name, UpdatePolicy.chooseApk(listOf(arm32, arm64), listOf("armeabi-v7a"))!!.name)
+        val c = UpdatePolicy.toCandidate(
+            UpdatePolicy.Release("v1.21", "LOSFER Minis 1.21", false, false, "", listOf(arm64), ""),
+            listOf("arm64-v8a"),
+        )!!
+        assertEquals(43, c.versionCode)
+        assertEquals("1.21", c.versionName)
+        assertTrue(UpdatePolicy.isNewer(c, Channel.BETA, "1.20", 42))
+        assertTrue(UpdatePolicy.isNewer(c, Channel.STABLE, "1.20", 42))
+    }
+
+    @Test
+    fun `the formal package list holds every stable package and excludes drafts and betas`() {
+        val stable = UpdatePolicy.Release(
+            "v1.21", "LOSFER Minis 1.21", false, false, "",
+            listOf(
+                a("LOSFER-Minis-1.21-build43-arm64-v8a.apk"),
+                a("LOSFER-Minis-1.21-build43.aab"),
+                a("SHA256SUMS"),
+            ),
+            "",
+        )
+        val beta = UpdatePolicy.Release(
+            "0-beta-build44", "beta", true, false, "",
+            listOf(a("LOSFER-Minis-1.22-beta.1-build44-arm64-v8a.apk")), "",
+        )
+        val draft = UpdatePolicy.Release(
+            "v1.22", "draft", false, true, "",
+            listOf(a("LOSFER-Minis-1.22-build45-arm64-v8a.apk")), "",
+        )
+        val formal = UpdatePolicy.formalPackages(listOf(beta, stable, draft))
+        assertEquals(2, formal.size)
+        assertEquals(
+            setOf("LOSFER-Minis-1.21-build43-arm64-v8a.apk", "LOSFER-Minis-1.21-build43.aab"),
+            formal.map { it.second.name }.toSet(),
+        )
+        assertEquals(2, UpdatePolicy.installablePackages(stable).size)
+    }
 }
