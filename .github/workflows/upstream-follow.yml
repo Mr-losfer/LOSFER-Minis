@@ -77,7 +77,11 @@ jobs:
       - name: نەشر نومۇرىنى ئۆستۈرۈش
         id: version
         if: steps.upstream.outputs.has_update == 'true'
-        run: python3 scripts/bump_version.py
+        run: |
+          python3 scripts/bump_version.py
+          # ھالەت ھۆججىتى ۋە ئىز قوغلاش جەدۋىلىدىكى ئۆز نەشرىمىزنى
+          # يېڭى versionName / versionCode بىلەن ماسلاشتۇرىمىز.
+          python3 scripts/track_upstream.py --sync-version
 
       - name: بارلىق ئورۇنلاشتۇرما بولاقلارنى قۇرۇش
         if: steps.upstream.outputs.has_update == 'true'
