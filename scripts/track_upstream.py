@@ -198,6 +198,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="ئەسلى ئامبارنى ئىز قوغلاش")
     ap.add_argument("--write", action="store_true", help="ھالەت ۋە ھۆججەتلەرنى يېزىش")
     ap.add_argument("--check", action="store_true", help="يېڭىلىق بارلىقىنى ئېنىقلاش")
+    ap.add_argument(
+        "--sync-version",
+        action="store_true",
+        help="نەشر ئۆستۈرۈلگەندىن كېيىن ھالەتتىكى ئۆز نەشرىمىزنى build.gradle.kts بىلەن ماسلاشتۇرۇش",
+    )
     args = ap.parse_args()
 
     previous = None
@@ -207,8 +212,27 @@ def main() -> int:
         except ValueError:
             previous = None
 
+    # بۇ ھالەتتە تور چاقىرىشى قىلمايمىز: پەقەت يەرلىك ھۆججەتلەرنى
+    # يېڭى نەشر نومۇرىغا ماسلاشتۇرىمىز. شۇڭا workflow نىڭ «نەشر
+    # ئۆستۈرۈش» قەدىمىدىن كېيىنلا چاقىرىلىدۇ.
+    if args.sync_version:
+        if not STATE_FILE.exists():
+            print("خاتالىق: ھالەت ھۆججىتى يوق", file=sys.stderr)
+            return 1
+        synced = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+        ver, code = _own_version()
+        synced["own_version"] = ver
+        synced["own_version_code"] = code
+        STATE_FILE.write_text(json.dumps(synced, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        write_doc(synced, bool(synced.get("update_found")))
+        print(f"نەشر ماسلاشتۇرۇلدى: {ver} / versionCode {code}", file=sys.stderr)
+        return 0
+
     now = collect()
     changed = has_update(now, previous)
+    # ھالەت جەدۋىلىدىكى «يېڭىلىق بايقالدى» قىممىتىنى ساقلايمىز،
+    # --sync-version ئۇنى قايتا ھېسابلىماي ئىشلىتىدۇ.
+    now["update_found"] = changed
 
     if args.write:
         STATE_FILE.write_text(json.dumps(now, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
