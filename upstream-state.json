@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-19T09:38:03+00:00",
+  "checked_at": "2026-11-19T22:21:44+00:00",
   "upstream_repo": "OpenMinis/OpenMinis",
   "own_repo": "Mr-losfer/LOSFER-Minis",
-  "own_version": "1.22",
-  "own_version_code": 44,
+  "own_version": "1.24",
+  "own_version_code": 46,
   "upstream_pushed_at": "2026-11-19T04:47:06Z",
   "upstream_default_branch": "main",
   "latest_release_tag": "0-beta-build45",
@@ -131,5 +131,6 @@
     "0-beta-build41: [كۆرۈنۈش] Every run of two or more finished tools now folds after the turn.",
     "0-beta-build41: [كۆرۈنۈش] The typing line now says \"Connected, waiting for the first token\".",
     "0-beta-build41: [كۆرۈنۈش] Improved the speed of Markdown rendering in long replies."
-  ]
+  ],
+  "update_found": false
 }
