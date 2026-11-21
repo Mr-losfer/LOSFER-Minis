@@ -36,8 +36,8 @@ android {
         applicationId = "cn.losfer.minis"
         minSdk = 26
         targetSdk = 35
-        versionCode = 46
-        versionName = "1.24"
+        versionCode = 47
+        versionName = "1.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
