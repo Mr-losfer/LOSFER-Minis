@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-21T08:56:32+00:00",
+  "checked_at": "2026-11-22T08:58:37+00:00",
   "upstream_repo": "OpenMinis/OpenMinis",
   "own_repo": "Mr-losfer/LOSFER-Minis",
   "own_version": "1.25",
@@ -113,5 +113,5 @@
     "0-beta-build42: [كۆرۈنۈش] The chat title has more room before it is cut off.",
     "0-beta-build42: [كۆرۈنۈش] Improved the speed of the chat list's previews for very long replies."
   ],
-  "update_found": true
+  "update_found": false
 }
