@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-26T10:10:01+00:00",
+  "checked_at": "2026-11-26T22:22:54+00:00",
   "upstream_repo": "OpenMinis/OpenMinis",
   "own_repo": "Mr-losfer/LOSFER-Minis",
-  "own_version": "1.26",
-  "own_version_code": 48,
+  "own_version": "1.27",
+  "own_version_code": 49,
   "upstream_pushed_at": "2026-11-26T05:10:16Z",
   "upstream_default_branch": "main",
   "latest_release_tag": "0-beta-build47",
@@ -122,5 +122,5 @@
     "0-beta-build43: [كۆرۈنۈش] The bottom edge of the chat top bar has a stronger tint, so text scrolling under it stays out of the way.",
     "0-beta-build43: [كۆرۈنۈش] The scheduled countdown pill now floats over the messages without taking room in the list."
   ],
-  "update_found": true
+  "update_found": false
 }

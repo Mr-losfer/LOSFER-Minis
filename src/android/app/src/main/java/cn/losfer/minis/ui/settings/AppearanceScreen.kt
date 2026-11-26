@@ -264,6 +264,11 @@ val languageOptions = listOf(
     // The app's only right-to-left language; its text is Persian but the
     // layout stays left-to-right - see LocaleWrap.forceLtr.
     LanguageOption("fa", "\uD83C\uDDEE\uD83C\uDDF7", "\u0641\u0627\u0631\u0633\u06CC"),
+    // [LOSFER-upstream-build47] Vietnamese was added upstream in
+    // 0-beta-build47 ("Added Vietnamese"); we implemented it ourselves with
+    // res/values-vi, this picker entry and locales_config.xml. Flag is VN,
+    // self-name Tiếng Việt. Latin script, LTR — no layout override needed.
+    LanguageOption("vi", "\uD83C\uDDFB\uD83C\uDDF3", "Ti\u1EBFng Vi\u1EC7t"),
     // [LOSFER] The Uyghur entry lives at the top of this list now (it is the
     // default language), see the head of languageOptions above.
 )

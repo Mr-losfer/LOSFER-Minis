@@ -78,4 +78,8 @@
          unlike Persian, Uyghur mirrors the layout). locale_wrap resolves the
          direction from the locale itself and skips the forceLtr override. -->
     <locale android:name="ug"/>
+    <!-- Vietnamese (vi). Added upstream in 0-beta-build47 ("Added Vietnamese")
+         and implemented here in res/values-vi. Latin script, LTR; strings
+         without a Vietnamese translation fall back to the English base. -->
+    <locale android:name="vi"/>
 </locale-config>
